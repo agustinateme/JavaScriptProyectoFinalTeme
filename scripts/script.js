@@ -197,7 +197,9 @@ function menu() {
                         }
                         break;
                     case 'B':
-                        alert(`TOTAL: ${monDePago} ${precio} \n ¡Gracias por su compra!`)
+                        if (precio > 0) {
+                            alert(`TOTAL: ${monDePago} ${precio} \n ¡Gracias por su compra!`)
+                        }
                         return 0;
                 }
             default:
