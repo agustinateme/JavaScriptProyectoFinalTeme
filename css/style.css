@@ -8,79 +8,141 @@
 header {
     background-image: url('../img/b1.jpg');
     background-size: cover;
-}
-
-nav {
-    background: linear-gradient(rgba(0, 0, 0, 0.712), transparent);
-    transition: background-color 0.5s;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
-    align-items: center;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
 }
 
 .header__nav--logo {
     font-family: 'Bebas Neue', cursive;
+    font-weight: 400;
     font-size: 2rem;
     color: white;
 }
 
-nav:hover {
+
+
+
+
+/*RESPONSIVE PHONE*/
+@media only screen and (max-width: 767px) { 
+
+}
+
+/*RESPONSIVE TABLET*/
+@media (min-width: 768px) and (max-width: 1023px) {
+    
+}
+
+/*RESPONSIVE DESKTOP*/
+@media only screen and (min-width: 1024px) {
+    nav {
+        transition: background-color 0s;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+        align-items: center;
+        padding: 0.5rem;
+    }
+    nav:hover {
     background-image: none;
-    background-color: white;
-    /* rosa translúcido */
-}
+    background-color: rgb(255, 255, 255);
+    }
 
-nav:hover a,
-nav:hover .header__nav--logo {
-    color: black;
-    /* letras en color negro al posar sobre el nav */
-}
-
-ul {
+    nav:hover a, nav:hover .header__nav--logo {
+        color: black;
+    }
+    .listaheader {
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
+    }
+
+    .listaheader li a{
+        margin: 1rem;
+        padding: 0.5rem;
+    }
+
+    .header__nav--links1 li:hover a {
+        background-color: #23b98c;
+        border-radius: 0.5rem;
+    }
+
+    a, .header__nav--links1 li:hover a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    #header-img1, #header-img2, #header-img3{
+        width: 2rem;
+    }
+
+    nav:hover #header-img1{
+        content: url("../img/perfil1.png");
+        width: 2rem;
+    }
+    nav:hover #header-img2 {
+        content: url("../img/carrito1.png");
+        width: 2rem;
+    }
+    nav:hover #header-img3 {
+        content: url("../img/favorito1.png");
+        width: 2rem;
+    }
+
+    nav:hover #header-img1:hover {
+        content: url("../img/perfil3.png");
+        width: 2rem;
+    }
+    nav:hover #header-img2:hover {
+        content: url("../img/carrito3.png");
+        width: 2rem;
+    }
+    nav:hover #header-img3:hover {
+        content: url("../img/favorito3.png");
+        width: 2rem;
+    }
+
+    nav:hover .header__nav--logo:hover {
+        color: #23b98c;
+        cursor: pointer;
+    }
+
+    .banner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+    }
+
+    .banner__desc, .banner__letras {
+        margin:0 5rem;
+        grid-column-start: 1;
+        justify-items: center;
+        font-weight: 400;
+        font-size: 2rem;
+        font-family: 'Kaushan Script', cursive;
+        color: white;
+        text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.596);
+        text-align: center;
+    }
+    .banner__letras {
+        font-size: 3.6rem;
+    }
+
+    /*FOOTER*/
+    .footer {
+        background-color: #23b98c;
+    }
 }
 
-li {
-    margin: 1rem;
-    background-color: transparent;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-}
-
-li:hover {
-    background-color: rgba(44, 238, 56, 0.479);
-}
-
-a,
-a:hover {
-    text-decoration: none;
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-.header-img {
-    width: 1.9rem;
-    height: 1.9rem;
-}
-
-.banner {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    justify-items: center;
-}
-
-.banner__letras {
-    grid-row-start: 2;
-    grid-row-end: 3;
-    font-family: 'Kaushan Script', cursive;
-    font-weight: 400;
-    font-size: 5rem;
-    color: white;
-    text-shadow: 5px 5px 7px black;
+.main{
+    background-color: #23b98c;
+    height: 40px;
 }
