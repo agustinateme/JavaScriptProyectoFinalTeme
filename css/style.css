@@ -122,18 +122,23 @@ header {
     }
 
     .banner__desc, .banner__letras {
-        margin:0 5rem;
         grid-column-start: 1;
         justify-items: center;
         font-weight: 400;
-        font-size: 2rem;
-        font-family: 'Kaushan Script', cursive;
         color: white;
         text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.596);
         text-align: center;
     }
     .banner__letras {
+        margin: 0 5rem;
         font-size: 3.6rem;
+        font-family: 'Kaushan Script', cursive;
+    }
+
+    .banner__desc {
+        margin: 4rem 5rem;
+        font-size: 1.2rem;
+        font-family: 'Raleway', sans-serif;
     }
 
     /*FOOTER*/
