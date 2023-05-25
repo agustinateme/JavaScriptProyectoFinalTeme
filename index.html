@@ -17,15 +17,15 @@
         <header>
             <nav>
                 <ul class="header__nav--links1 listaheader">
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Nosotros</a></li>
-                    <li><a href="#">Tiendas</a></li>
+                    <li><a href="./pages/productos.html">Productos</a></li>
+                    <li><a href="./pages/nosotros.html">Nosotros</a></li>
+                    <li><a href="./pages/tiendas.html">Tiendas</a></li>
                 </ul>
                 <a href="./index.html"><p class="header__nav--logo">Ginkgo | 銀杏</p></a>
                 <ul class="listaheader">
-                    <li class="links2"><a href="#"><img src="./img/perfil2.png" alt="" id="header-img1"></a></li>
-                    <li class="links2"><a href="#"><img src="./img/carrito2.png" alt="" id="header-img2"></a></li>
-                    <li class="links2"><a href="#"><img src="./img/favorito2.png" alt="" id="header-img3"></a></li>
+                    <li class="links2"><a href="./pages/usuario.html"><img src="./img/header/perfil2.png" alt="perfil" id="header-img1"></a></li>
+                    <li class="links2"><a href="./pages/carrito.html"><img src="./img/header/carrito2.png" alt="carrito" id="header-img2"></a></li>
+                    <li class="links2"><a href="./pages/favoritos.html"><img src="./img/header/favorito2.png" alt="favorito" id="header-img3"></a></li>
                 </ul>
             </nav>
             <div class="banner">
@@ -33,20 +33,44 @@
                     <p class="banner__letras">Jardín japonés en casa</p>
                     <p class="banner__desc">¡Encuentra la armonía natural en cada rincón, vive la belleza japonesa en tu hogar con nuestras plantas exquisitas!</p>
                 </div>
-                <img src="./img/bplanta.png" alt="">
-                
+                <div class="banner__img">
+                    <img src="./img/header/bplanta.png" alt="planta logo">
+                </div>
             </div>
         </header>
         <main class="main">
-            <section>
-                <p>
-                    f3wign3qoINGPO3qwgpo3NGPW
-                </p>
+            <section class="main__galeria">
+                <img src="./img/galeria/galeria1.jpg" alt="">
+                <img src="./img/galeria/galeria2.jpg" alt="">
+                <img src="./img/galeria/galeria3.jpg" alt="">
+                <img src="./img/galeria/galeria4.jpg" alt="">
+                <img src="./img/galeria/galeria5.jpg" alt="">
+                <img src="./img/galeria/galeria6.jpg" alt="">
+                <img src="./img/galeria/galeria7.jpg" alt="" class="main__galeria--quitar">
+                <img src="./img/galeria/galeria8.jpg" alt="" class="main__galeria--quitar">
+                <img src="./img/galeria/galeria9.jpg" alt="" class="main__galeria--quitar">
             </section>
-
         </main>
         <footer class="footer">
+            <section class="footer__redesSociales">
+                <a href=""><img src="./img/footer/ig.png" alt=""></a>
+                <a href=""><img src="./img/footer/fb.png" alt=""></a>
+                <a href=""><img src="./img/footer/tw.png" alt=""></a>
+                <a href=""><img src="./img/footer/wpp.png" alt=""></a>
+            </section>
+
+            <section class="footer__logo">
+                <img src="./img/footer/logo.png" alt="">
+            </section>
             
+            <form class="footer__suscribete">
+                <p id="suscribete--title">¡Suscríbete a nuestras noticias!</p>
+                <p id="suscribete--subtitle">consigue un 10% de descuento en tu primera compra</p>
+                <div>
+                    <input type="email" id="email" name="email" required placeholder="e-mail">
+                    <button id="btn--suscribete" type="submit">SUSCRIBETE</button>
+                </div>
+            </form>
         </footer>
 
         <script src="./scripts/script.js"></script>

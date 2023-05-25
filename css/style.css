@@ -5,28 +5,229 @@
     font-family: 'Raleway', sans-serif;
 }
 
-header {
-    background-image: url('../img/b1.jpg');
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100vh;
-}
+
 
 .header__nav--logo {
     font-family: 'Bebas Neue', cursive;
     font-weight: 400;
     font-size: 2rem;
-    color: white;
 }
 
+#header-img1, #header-img2, #header-img3 {
+    width: 2rem;
+}
 
+.footer__redesSociales {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
 
+.footer__redesSociales a img {
+    margin: 10px;
+}
 
+.footer__redesSociales a img:hover {
+    transition: 1s;
+    transform: rotate(360deg);
+}
+
+.footer {
+    background-color: #23b98c;
+}
+
+.footer__redesSociales a img {
+    width: 2.3rem;
+}
+
+.footer__logo img {
+    width: 200px;
+    margin: 0 5rem;
+}
+
+.footer__suscribete {
+    text-align: center;
+    color: white;
+    margin: 0 2rem;
+}
+
+.footer__suscribete div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+    
+#suscribete--title {
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+}
+#suscribete--subtitle {
+    margin-bottom: 1rem;
+}
+
+#btn--suscribete {
+    font-weight: 800;
+    color: white;
+    background-color: black;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border: none;
+}
+
+#email {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border: none;
+    padding-left: 1rem;
+}
 
 /*RESPONSIVE PHONE*/
 @media only screen and (max-width: 767px) { 
+    header {
+        background-image: url('../img/header/b1.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    nav {
+        background-color: white;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        justify-items: center;
+        align-items: center;
+        padding: 0.5rem;
+    }
+    nav a {
+        text-decoration: none;
+        grid-row-start: 1;
+    }
+    .listaheader {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .listaheader li {
+        margin: 0 1rem;
+    }
 
+    #header-img1 {
+        content: url("../img/header/perfil1.png");
+        width: 1.5rem;
+    }
+        
+    #header-img2 {
+        content: url("../img/header/carrito1.png");
+        width: 1.5rem;
+    }
+        
+    #header-img3 {
+        content: url("../img/header/favorito1.png");
+        width: 1.5rem;
+    }
+    #header-img1:hover {
+        content: url("../img/header/perfil3.png");
+        width: 1.5rem;
+    }
+        
+    #header-img2:hover {
+        content: url("../img/header/carrito3.png");
+        width: 1.5rem;
+    }
+        
+    #header-img3:hover {
+        content: url("../img/header/favorito3.png");
+        width: 1.5rem;
+    }
+
+    .header__nav--logo {
+        text-decoration: none;
+        color: black;
+    }  
+
+    .header__nav--logo:hover, .header__nav--links1 li a:hover{
+        color: #23b98c;
+        cursor: pointer;
+    }
+    .header__nav--links1 li a {
+        text-decoration: none;
+        color: black;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+    .banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .banner__desc, .banner__letras {
+        justify-items: center;
+        font-weight: 400;
+        color: white;
+        text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.712);
+        text-align: center;
+    }
+    .banner__letras {
+        margin: 1rem;
+        font-size: 2rem;
+        font-family: 'Kaushan Script', cursive;
+    }
+
+    .banner__desc {
+        margin: 1rem;
+        font-size: 0.875rem;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .banner__img img{
+        width: 300px;
+    }
+
+    .main__galeria {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin: 1rem;
+    }
+    .main__galeria img {
+        width: 100%;
+    }
+    .main__galeria--quitar {
+        display: none;
+    }
+
+    .footer__redesSociales a img {
+        width: 1.5rem;
+    }
+
+    .footer {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        padding-bottom: 2.5rem;
+    }
+    .footer__logo {
+        display: none;
+    }
+    .footer__suscribete {
+        font-size: 0.875rem;
+    }
+
+    #btn--suscribete {
+        width: 5.5rem;
+        height: 2.3rem;
+        font-size: 0.7rem;
+    }
+
+    #email {
+        width: 9rem;
+        height: 2.3rem;
+        font-size: 0.8rem;
+    }
 }
 
 /*RESPONSIVE TABLET*/
@@ -36,6 +237,14 @@ header {
 
 /*RESPONSIVE DESKTOP*/
 @media only screen and (min-width: 1024px) {
+    /*HEADER*/
+    header {
+        background-image: url('../img/header/b1.jpg');
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 100vh;
+    }
     nav {
         transition: background-color 0s;
         display: grid;
@@ -45,19 +254,19 @@ header {
         padding: 0.5rem;
     }
     nav:hover {
-    background-image: none;
-    background-color: rgb(255, 255, 255);
+        background-image: none;
+        background-color: rgb(255, 255, 255);
     }
-
+    
     nav:hover a, nav:hover .header__nav--logo {
         color: black;
     }
     .listaheader {
-    list-style: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    justify-items: center;
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        justify-items: center;
     }
 
     .listaheader li a{
@@ -76,35 +285,39 @@ header {
         font-weight: 600;
         font-size: 1rem;
     }
-
-    #header-img1, #header-img2, #header-img3{
+        
+    nav:hover #header-img1 {
+        content: url("../img/header/perfil1.png");
         width: 2rem;
     }
-
-    nav:hover #header-img1{
-        content: url("../img/perfil1.png");
-        width: 2rem;
-    }
+        
     nav:hover #header-img2 {
-        content: url("../img/carrito1.png");
+        content: url("../img/header/carrito1.png");
         width: 2rem;
     }
+        
     nav:hover #header-img3 {
-        content: url("../img/favorito1.png");
+        content: url("../img/header/favorito1.png");
         width: 2rem;
     }
-
+        
     nav:hover #header-img1:hover {
-        content: url("../img/perfil3.png");
+        content: url("../img/header/perfil3.png");
         width: 2rem;
     }
+        
     nav:hover #header-img2:hover {
-        content: url("../img/carrito3.png");
+        content: url("../img/header/carrito3.png");
         width: 2rem;
     }
+        
     nav:hover #header-img3:hover {
-        content: url("../img/favorito3.png");
+        content: url("../img/header/favorito3.png");
         width: 2rem;
+    }
+        
+    .header__nav--logo {
+        color: white;
     }
 
     nav:hover .header__nav--logo:hover {
@@ -126,7 +339,7 @@ header {
         justify-items: center;
         font-weight: 400;
         color: white;
-        text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.596);
+        text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.712);
         text-align: center;
     }
     .banner__letras {
@@ -141,13 +354,52 @@ header {
         font-family: 'Raleway', sans-serif;
     }
 
+    .banner__img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .banner__img img {
+        width: 90%;
+        max-height: 90%;
+    }
+
+    .main__galeria {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin: 1rem;
+    }
+    .main__galeria img {
+        width: 100%;
+    }
+
     /*FOOTER*/
     .footer {
-        background-color: #23b98c;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        justify-items: center;
     }
-}
 
-.main{
-    background-color: #23b98c;
-    height: 40px;
+    .footer__suscribete {
+        font-size: 1rem;
+    }
+
+    #suscribete--subtitle {
+        margin-bottom: 1rem;
+    }
+
+    #btn--suscribete {
+        width: 7rem;
+        height: 2.5rem;
+        font-size: 0.8rem;
+    }
+
+    #email {
+        width: 11rem;
+        height: 2.5rem;
+        font-size: 0.9rem;
+    }
 }
