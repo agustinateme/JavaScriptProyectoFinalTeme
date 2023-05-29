@@ -5,18 +5,17 @@
     font-family: 'Raleway', sans-serif;
 }
 
-
-
+/*HEADER COSAS EN COMÚN*/
 .header__nav--logo {
     font-family: 'Bebas Neue', cursive;
     font-weight: 400;
     font-size: 2rem;
 }
-
 #header-img1, #header-img2, #header-img3 {
     width: 2rem;
 }
 
+/*FOOTER COSAS EN COMÚN*/
 .footer__redesSociales {
     display: flex;
     flex-direction: row;
@@ -24,7 +23,6 @@
     align-items: center;
     padding: 10px;
 }
-
 .footer__redesSociales a img {
     margin: 10px;
 }
@@ -33,32 +31,26 @@
     transition: 1s;
     transform: rotate(360deg);
 }
-
 .footer {
     background-color: #23b98c;
 }
-
 .footer__redesSociales a img {
     width: 2.3rem;
 }
-
 .footer__logo img {
     width: 200px;
     margin: 0 5rem;
 }
-
 .footer__suscribete {
     text-align: center;
     color: white;
     margin: 0 2rem;
 }
-
 .footer__suscribete div {
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
-    
+}   
 #suscribete--title {
     font-weight: 800;
     margin-bottom: 0.2rem;
@@ -66,25 +58,41 @@
 #suscribete--subtitle {
     margin-bottom: 1rem;
 }
-
 #btn--suscribete {
     font-weight: 800;
     color: white;
-    background-color: black;
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    background-color: #FE654F;
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
     border: none;
 }
-
 #email {
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
     border: none;
     padding-left: 1rem;
 }
 
+/*MAIN DE INDEX*/
+.logoInstagram {
+    display: block;
+    width: 100%;
+    font-size: 0px;
+    color: transparent;
+    overflow: hidden;
+    background: url('../img/galeria/ig.png') no-repeat center;
+    background-size: contain;
+    margin-top: 1rem;
+}
+.main__ig {
+    text-align: center;
+    font-weight: 800;
+    margin: 2rem;
+}
+
 /*RESPONSIVE PHONE*/
-@media only screen and (max-width: 767px) { 
+@media only screen and (max-width: 1023px) { 
+    /*HEADER*/
     header {
         background-image: url('../img/header/b1.jpg');
         background-size: cover;
@@ -111,17 +119,14 @@
     .listaheader li {
         margin: 0 1rem;
     }
-
     #header-img1 {
         content: url("../img/header/perfil1.png");
         width: 1.5rem;
     }
-        
     #header-img2 {
         content: url("../img/header/carrito1.png");
         width: 1.5rem;
-    }
-        
+    }   
     #header-img3 {
         content: url("../img/header/favorito1.png");
         width: 1.5rem;
@@ -129,23 +134,19 @@
     #header-img1:hover {
         content: url("../img/header/perfil3.png");
         width: 1.5rem;
-    }
-        
+    }   
     #header-img2:hover {
         content: url("../img/header/carrito3.png");
         width: 1.5rem;
-    }
-        
+    }   
     #header-img3:hover {
         content: url("../img/header/favorito3.png");
         width: 1.5rem;
     }
-
     .header__nav--logo {
         text-decoration: none;
         color: black;
     }  
-
     .header__nav--logo:hover, .header__nav--links1 li a:hover{
         color: #23b98c;
         cursor: pointer;
@@ -156,12 +157,12 @@
         font-weight: 600;
         font-size: 0.875rem;
     }
+    /*BANNER INDEX (ES PARTE DEL HEADER EN EL INDEX)*/
     .banner {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-
     .banner__desc, .banner__letras {
         justify-items: center;
         font-weight: 400;
@@ -174,17 +175,15 @@
         font-size: 2rem;
         font-family: 'Kaushan Script', cursive;
     }
-
     .banner__desc {
         margin: 1rem;
         font-size: 0.875rem;
         font-family: 'Raleway', sans-serif;
     }
-
     .banner__img img{
         width: 300px;
     }
-
+    /*MAIN DE INDEX*/
     .main__galeria {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -198,11 +197,17 @@
     .main__galeria--quitar {
         display: none;
     }
-
-    .footer__redesSociales a img {
-        width: 1.5rem;
+    .logoInstagram {
+        height: 40px;
+    }
+    .main__ig {
+        font-size: 0.875rem;
     }
 
+    /*FOOTER*/
+    .footer__redesSociales a img {
+        width: 1.8rem;
+    }
     .footer {
         display: grid;
         grid-template-rows: 1fr 1fr;
@@ -216,29 +221,40 @@
     .footer__suscribete {
         font-size: 0.875rem;
     }
-
     #btn--suscribete {
         width: 5.5rem;
         height: 2.3rem;
         font-size: 0.7rem;
     }
-
     #email {
         width: 9rem;
         height: 2.3rem;
         font-size: 0.8rem;
     }
-}
 
-/*RESPONSIVE TABLET*/
-@media (min-width: 768px) and (max-width: 1023px) {
-    
+    /*HEADER DEMÁS PÁGINAS*/
+    .nav-pag #header-img1:hover {
+        content: url("../img/header/perfil4.png");
+        width: 1.5rem;
+    }   
+    .nav-pag #header-img2:hover {
+        content: url("../img/header/carrito4.png");
+        width: 1.5rem;
+    }   
+    .nav-pag #header-img3:hover {
+        content: url("../img/header/favorito4.png");
+        width: 1.5rem;
+    }
+    .nav-pag .header__nav--logo:hover, .header__nav--links1 li a:hover{
+        color: #FE654F;
+        cursor: pointer;
+    }
 }
 
 /*RESPONSIVE DESKTOP*/
 @media only screen and (min-width: 1024px) {
-    /*HEADER*/
-    header {
+    /*HEADER INDEX*/
+    .header {
         background-image: url('../img/header/b1.jpg');
         background-size: cover;
         background-position: center;
@@ -257,7 +273,6 @@
         background-image: none;
         background-color: rgb(255, 255, 255);
     }
-    
     nav:hover a, nav:hover .header__nav--logo {
         color: black;
     }
@@ -268,63 +283,54 @@
         align-items: center;
         justify-items: center;
     }
-
     .listaheader li a{
         margin: 1rem;
         padding: 0.5rem;
     }
-
     .header__nav--links1 li:hover a {
         background-color: #23b98c;
         border-radius: 0.5rem;
     }
-
     a, .header__nav--links1 li:hover a {
         text-decoration: none;
         color: white;
         font-weight: 600;
         font-size: 1rem;
-    }
-        
+    } 
+    .header__nav--logo {
+        color: white;
+    }  
     nav:hover #header-img1 {
         content: url("../img/header/perfil1.png");
         width: 2rem;
-    }
-        
+    }   
     nav:hover #header-img2 {
         content: url("../img/header/carrito1.png");
         width: 2rem;
-    }
-        
+    }   
     nav:hover #header-img3 {
         content: url("../img/header/favorito1.png");
         width: 2rem;
-    }
-        
+    }   
     nav:hover #header-img1:hover {
         content: url("../img/header/perfil3.png");
         width: 2rem;
-    }
-        
+    }   
     nav:hover #header-img2:hover {
         content: url("../img/header/carrito3.png");
         width: 2rem;
-    }
-        
+    }   
     nav:hover #header-img3:hover {
         content: url("../img/header/favorito3.png");
         width: 2rem;
-    }
-        
-    .header__nav--logo {
-        color: white;
-    }
-
+    }   
+    
     nav:hover .header__nav--logo:hover {
         color: #23b98c;
         cursor: pointer;
     }
 
+    /*BANNER INDEX (ES PARTE DEL HEADER EN LA PAG. INDEX)*/
     .banner {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -333,7 +339,6 @@
         height: 100%;
         align-items: center;
     }
-
     .banner__desc, .banner__letras {
         grid-column-start: 1;
         justify-items: center;
@@ -347,32 +352,41 @@
         font-size: 3.6rem;
         font-family: 'Kaushan Script', cursive;
     }
-
     .banner__desc {
         margin: 4rem 5rem;
         font-size: 1.2rem;
         font-family: 'Raleway', sans-serif;
     }
-
     .banner__img {
         max-width: 90%;
         max-height: 90%;
     }
-
     .banner__img img {
         width: 90%;
         max-height: 90%;
     }
 
+    /*MAIN INDEX*/
     .main__galeria {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
         gap: 1rem;
-        margin: 1rem;
+        margin: 0rem 5rem 5rem 5rem;
     }
     .main__galeria img {
         width: 100%;
+    }
+    .main__galeria img:hover {
+        transition: 1s;
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+    .logoInstagram {
+        height: 60px;
+    }
+    .main__ig {
+        font-size: 1rem;
     }
 
     /*FOOTER*/
@@ -382,24 +396,95 @@
         align-items: center;
         justify-items: center;
     }
-
     .footer__suscribete {
         font-size: 1rem;
     }
-
     #suscribete--subtitle {
         margin-bottom: 1rem;
     }
-
     #btn--suscribete {
         width: 7rem;
         height: 2.5rem;
         font-size: 0.8rem;
     }
-
     #email {
         width: 11rem;
         height: 2.5rem;
         font-size: 0.9rem;
+    }
+
+    /*HEADER DEMÁS PÁGINAS*/
+    .header-pag{
+        background-color: #23b98c;
+    }
+    .nav-pag:hover #header-img1:hover {
+        content: url("../img/header/perfil4.png");
+        width: 2rem;
+    }   
+    .nav-pag:hover #header-img2:hover {
+        content: url("../img/header/carrito4.png");
+        width: 2rem;
+    }   
+    .nav-pag:hover #header-img3:hover {
+        content: url("../img/header/favorito4.png");
+        width: 2rem;
+    }   
+    
+    .nav-pag:hover .header__nav--logo:hover {
+        color: #FE654F;
+        cursor: pointer;
+    }
+    .nav-pag .header__nav--links1 li:hover a {
+        background-color: #FE654F;
+        border-radius: 0.5rem;
+    }
+
+    /*NOSOTROS*/
+    #main__nosotros {
+        display: flex;
+        flex-direction: column;
+    }
+    .nosotros__historia div{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .nosotros__historia div img {
+        width: 70%;
+
+    }
+    .h2_nos, .myv {
+        font-family: 'Bebas Neue', cursive;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 400;
+        margin-top: 2rem;
+    }
+    .h2_nos {
+        color: #FE654F;
+    }
+    .myv {
+        color: white;
+    }
+
+    .nosotros__historia div {
+        background-image: url('../img/header/b1.jpg');
+        background-size: cover;
+        background-position: center;
+        font-size: 1rem;
+        color: white;
+        margin: 2rem;
+        padding: 2rem;
+        border-radius: 1rem;
+    }
+    .nosotros__historia div section{
+        background-color: #23b98c;
+        border-radius: 1rem;
+        padding: 1rem;
+    }
+    .nosotros__historia div section p {
+        margin: 1rem;
     }
 }

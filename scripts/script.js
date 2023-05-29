@@ -1,215 +1,247 @@
-// Variables
-let precioA = 2500;
-let cantA = 0;
-let precioB = 859;
-let cantB = 0;
-let precioC = 429;
-let cantC = 0;
-let precioD = 1590;
-let cantD = 0;
-let precioE = 2399;
-let cantE = 0;
-let monDePago = 'UYU';
+//Arreglos de productos sin IVA
+const productosSinIVA = [
+    { nombre: 'bonsai', id: 1, divisa: 'UYU', precio: 2500, cant: 0, stock: 27 },
+    { nombre: 'lirio japonés', id: 2, divisa: 'UYU', precio: 859, cant: 0, stock: 35 },
+    { nombre: 'azalea', id: 3, divisa: 'UYU', precio: 429, cant: 0, stock: 15 },
+    { nombre: 'sakura', id: 4, divisa: 'UYU', precio: 1590, cant: 0, stock: 10 },
+    { nombre: 'ginkgo', id: 5, divisa: 'UYU', precio: 2399, cant: 0, stock: 20 },
+    { nombre: 'fujibakama ', id: 6, divisa: 'UYU', precio: 599, cant: 0, stock: 12 },
+    { nombre: 'kiku ', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4 },
+    { nombre: 'nadeshiko', id: 8, divisa: 'UYU', precio: 1990, cant: 0, stock: 3 },
+];
 
-// Función para calcular el iva de un producto, iva de Uruguay es del 22%
-function calcularIva(precio) {
-    return precio + (precio * 22 / 100);
+let carrito = [];
+
+//Arreglos de productos con IVA incluído
+const IVA_FACTOR = 1.22;
+const productosConIVA = productosSinIVA.map((prod) => {
+    return {
+        nombre: prod.nombre,
+        id: prod.id,
+        divisa: prod.divisa,
+        precio: parseFloat((prod.precio * IVA_FACTOR).toFixed(2)),
+        cant: prod.cant,
+        stock: prod.stock,
+    };
+});
+
+//Arreglos de objetos divisa
+const divisa = [
+    { codigo: 'USD', valor: 38.68 },
+    { codigo: 'ARS', valor: 0.16 },
+    { codigo: 'BRL', valor: 7.76 },
+];
+
+//función que retorna true si el carrito está vacío
+function cantidadEsCero(arreglo, id) {
+    id = id - 1;
+    return arreglo[id].cant === 0;
 }
 
-// Función para calcular descuentos con cupones
-// Si se ingresa un código de cupón incorrecto se puede finalizar la función o llamarse recursivamente
-function cuponDescuento(codigo, precio) {
-    let continuar;
-    if (codigo == 'NewUser23') { //CUPÓN DE 15% DE DESCUENTO PARA NUEVOS USUARIOS
-        return precio - (precio * 15 / 100);
-        
-    }
-    else if (codigo == 'plant520') { //CUPÓN DE 30% DE DESCUENTO
-        return precio = precio - (precio * 30 / 100)
-    }
-    else {
-        continuar = prompt(`Ingrese un código valido \nA: reingresar código \nB: Finalizar compra`);
-        if (continuar == 'A') {
-            codigo = prompt(`Ingrese su cupón de descuento:`);
-            return cuponDescuento(codigo, precio);
+//función que retorna true si hay stock
+function hayStock(arreglo, id) {
+    id = id - 1;
+    return arreglo[id].cant < arreglo[id].stock;
+}
+
+//Función que retorna un arreglo con el precio modificado según la divisa
+//Se le pasa un arreglo y un objeto divisa
+function conversor(arreglo, divisa) {
+    const conversion = arreglo.map((prod) => {
+        return {
+            nombre: prod.nombre,
+            id: prod.id,
+            divisa: divisa.codigo,
+            precio: parseFloat((prod.precio / divisa.valor).toFixed(2)),
+            cant: prod.cant,
+            stock: prod.cant,
+        };
+    });
+    return conversion;
+}
+
+//Función que retorna un arreglo filtrado de menor a mayor
+//recibe el arreglo que quiero filtrar
+function menorAMayor(arreglo) {
+    const pOrdMenor = arreglo.map((prod) => prod);
+    pOrdMenor.sort((a, b) => {
+        if (a.precio > b.precio) {
+            return 1;
         }
-        else if (continuar == 'B') {
-            return -1; //centinela para avisar que se finaliza la compra sin descuento luego de haber ingresado uno o más cupones incorrectos
+        if (a.precio < b.precio) {
+            return -1;
         }
-        else {
-            alert('Ingrese una opción válida');
-            codigo = prompt(`Ingrese su cupón de descuento:`);
-            return cuponDescuento(codigo, precio);
+        return 0;
+    });
+    return pOrdMenor;
+}
+
+//Función que retorna un arreglo filtrado de mayor a menor
+//recibe el arreglo que quiero filtrar
+function mayorAMenor(arreglo) {
+    const pOrdMayor = arreglo.map((prod) => prod);
+    pOrdMayor.sort((a, b) => {
+        if (b.precio > a.precio) {
+            return 1;
+        }
+        if (b.precio < a.precio) {
+            return -1;
+        }
+        return 0;
+    });
+    return pOrdMayor;
+}
+
+//Función que recibe un arreglo y devuelve otro filtrado entre dos precios
+function entrePrecios(arreglo) {
+    let pMenor = prompt('Ingrese precio inferior:');
+    let pMayor = prompt('Ingrese precio superior:');
+    const aFiltrado = arreglo.filter((prod) => prod.precio > pMenor && prod.precio < pMayor);
+    if (aFiltrado.length == 0) {
+        console.log(`No hay productos en el rango de precios dado`);
+    }
+    return aFiltrado;
+}
+
+//Función que recibe un arreglo y devuelve otro filtrado por nombre (buscador)
+function buscador(arreglo) {
+    search = prompt('Busqueda por nombre:');
+    const aFiltrado = arreglo.filter((prod) =>
+        prod.nombre.includes(search.toLowerCase())
+    );
+    return aFiltrado;
+}
+
+//Procemiento para agregar un producto al carrito recibe un arreglo y un identificador del producto a agregar
+//se ejecuta solo si hay stock del elemento a agregar
+function agregar(arreglo, id) {
+    id = id - 1;
+    if (carrito.some((prod) => prod.id == id + 1)) {
+        const index = carrito.findIndex((prod) => prod.id == id + 1);
+        carrito[index].cant++;
+    } else {
+        carrito.push({ ...arreglo[id], cant: 1 });
+    }
+    productosConIVA[id].cant++;
+}
+
+//Procedimiento que elimina un elemento del carrito
+function eliminar(id) {
+    id = id - 1;
+    const index = carrito.findIndex((prod) => prod.id === id + 1);
+    if (index !== -1) {
+        if (carrito[index].cant > 1) {
+            carrito[index].cant--;
+        } else {
+            carrito.splice(index, 1);
         }
     }
+    productosConIVA[id].cant--;
 }
 
-// Procedimiento para agregar productos al carrito
-// El procedimiento aumenta la cantidad de cada producto que agrego al carrito, si ingreso una letra que no pertenece a un producto la función se llama recursivamente
-function agregarEnCarrito() {
-    let planta;
-    let cantidad;
-    cantidad = cantProductos(cantA, cantB, cantC, cantD, cantE);
-    planta = prompt(`Bienvenido al carrito de compras, usted tiene agregado ${cantidad} productos para comprar \n (Precios sin IVA incluido) \n Ingrese letra del producto elegido: \n A: Bonsai UYU 2500, ${cantA} Unidad/es \n B: Lirio Japonés UYU 859, ${cantB} Unidad/es \n C: Azalea UYU 429, ${cantC} Unidad/es \n D: Sakura UYU 1590 , ${cantD} Unidad/es\n E: Ginkgo UYU 2399, ${cantE} Unidad/es`);
-    switch (planta) {
-        case "A":
-            cantA++;
-            break;
-        case "B":
-            cantB++;
-            break;
-        case "C":
-            cantC++;
-            break;
-        case "D":
-            cantD++;
-            break;
-        case "E":
-            cantE++;
-            break;
-        default:
-            alert(`Ingrese letra de un producto`);
-            agregarEnCarrito();
-            break;
-    }
+//Función que devuelve el precio total de un arreglo
+function precioTotal(arreglo) {
+    const total = arreglo.reduce((acum, prod) => acum + parseFloat(prod.precio * prod.cant), 0).toFixed(2);
+    return total;
 }
 
-// Procedimiento para remover productos del carrito
-function removerDeCarrito() {
-    let planta;
-    planta = prompt(`Ingrese letra del producto a eliminar del carrito: \n A: Bonsai UYU 2500, ${cantA} Unidad/es \n B: Lirio Japonés UYU 859, ${cantB} Unidad/es \n C: Azalea UYU 429, ${cantC} Unidad/es \n D: Sakura UYU 1590 , ${cantD} Unidad/es\n E: Ginkgo UYU 2399, ${cantE} Unidad/es`);
-    switch (planta) {
-        case "A":
-            cantA--;
-            break;
-        case "B":
-            cantB--;
-            break;
-        case "C":
-            cantC--;
-            break;
-        case "D":
-            cantD--;
-            break;
-        case "E":
-            cantE--;
-            break;
-        default:
-            alert(`Ingrese letra de un producto`);
-            removerDeCarrito();
-            break;
-    }
+//Programa que muestra id, nombre, precio y cantidad de elementos de un arreglo
+function mostrarArreglo(arreglo) {
+    arreglo.forEach((prod) => {
+        console.log(`id ${prod.id}: ${prod.nombre} ${prod.divisa} ${prod.precio}, (agregado al carrito: ${prod.cant} producto/s)`);
+    });
 }
 
-// Función para calcular el precio total
-// utilizo calcularIva(precio)
-function precioTotal() {
-    return (cantA * calcularIva(precioA) + cantB * calcularIva(precioB) + cantC * calcularIva(precioC) + cantD * calcularIva(precioD) + cantE * calcularIva(precioE));
+//Programa que muestra las opciones del menú interactivo
+function mostrarMenu() {
+    console.log('\n 1. Agregar producto al carrito \n 2. Eliminar producto del carrito \n 3. Buscador \n 4. Ordenar de menor a mayor \n 5. Ordenar de mayor a menor \n 6. Filtrar entre dos precios \n 7. Precio total \n 8. Comprar \n 9. Salir');
 }
 
-// Función para calcular cantidad total de productos seleccionados
-// Sumo todas las cantidades para obtener la total
-function cantProductos(cantA, cantB, cantC, cantD, cantE) {
-    return (cantA + cantB + cantC + cantD + cantE);
-}
 
-// Función para convertir pesos uruguayos a (dolares, reales brasileños o pesos argentinos)
-function conversor(moneda, precio) {
-    let valorConvertido;
-    switch (moneda) {
-        case "UYU":
-            monDePago = "UYU"
-            return valorConvertido = precio / 1; //MANTENGO PRECIO EN PESOS URUGUAYOS
-        case "USD":
-            monDePago = "USD"
-            return valorConvertido = precio / 39.02; //39.02 UYU = 1 USD
-        case "BRL":
-            monDePago = "BRL"
-            return valorConvertido = precio / 7.83; //7.83 UYU = 1 BRL
-        case "ARS":
-            monDePago = "ARS"
-            return valorConvertido = precio / 0.17; //0.17 UYU = 1 ARS
-        default:
-            alert("Ingrese USD, BRL o ARS para generar conversión");
-            moneda = prompt(`Ingrese el código de su divisa \n USD: Dólares \n BRL: Reales \n ARS: Pesos Argentinos \n UYU: Mantener el tipo de cambio en Pesos Uruguayos`);
-            return conversor(moneda, precio);
-    }
-}
-
-//Funcion menú
-function menu() {
-    let app;
-    let aux;
-    let precio = 0;
-    let descuento;
-    let codigoDescuento;
-    let precioDescuento = 0;
-    app = prompt(`PASOS EN ORDEN PARA COMPRAR: \n 1: Carrito de compras \n 2: Consultar precio \n 3: Convertir precio a diferentes divisas \n 4: Finalizar compra`);
-    while (aux != '4') {
-        switch (app) {
-            case '1':
-                let next;
-                next = prompt(`Desea agregar productos al carrito: \n A: Sí \n B: No`);
-                while (next != "B") {
-                    agregarEnCarrito();
-                    next = prompt(`Desea seguir agregando productos al carrito: \n A: Sí \n B: No`);
-                }
-                let remove;
-                remove = prompt(`Desea remover productos del carrito: \n A: Sí \n B: No`);
-                while (remove != "B") {
-                    removerDeCarrito();
-                    precio = precioTotal();
-                    remove = prompt(`Desea seguir removiendo productos del carrito: \n A: Sí \n B: No`);
-                }
-                break;
-            case '2':
-                precio = (precioTotal());
-                precio = precio.toFixed(2);
-                alert(`El precio total es: ${precio} (con IVA incluido)`);
-                break;
-            case '3':
-                if (precio > 0) {
-                    monDePago = prompt(`Ingrese el código de su divisa \n USD: Dólares \n BRL: Reales \n ARS: Pesos Argentinos \n UYU: Mantener el tipo de cambio en Pesos Uruguayos`);
-                    precio = conversor(monDePago, precio);
-                    precio = precio.toFixed(2);
-                    alert(`El precio convertido es: ${monDePago} ${precio}`);
+//PROGRAMA PRINCIPAL
+function ejecutarPrograma() {
+    let opcion = 0;
+    while (opcion !== 9) {
+        mostrarMenu();
+        opcion = parseInt(prompt('Ingrese una opción:'));
+        switch (opcion) {
+            case 1:
+                mostrarArreglo(productosConIVA);
+                let idAgregar = parseInt(prompt('Ingrese el ID del producto a agregar:'));
+                if ((idAgregar <= 8) && (idAgregar >= 1)) {
+                    if (hayStock(productosConIVA, idAgregar)) {
+                        agregar(productosConIVA, idAgregar);
+                        console.log(`Producto ${productosConIVA[idAgregar - 1].nombre} agregado al carrito.`);
+                    }
+                    else {
+                        console.log(`No hay stock de ${productosConIVA[idAgregar - 1].nombre}.`);
+                    } 
                 } else {
-                    alert(`Primero agregue productos al carrito de compras`);
+                    console.log('Ingrese un valor válido');
                 }
                 break;
-            case '4':
-                descuento = prompt(`TOTAL DE COMPRA: ${monDePago} ${precio} \n Los clientes nuevos tienen 15% de descuento con el código "NewUser23" en su primera compra \n ¿Desea agregar cupones de descuento? \n A: SI \n B: NO`);
-                switch (descuento) {
-                    case 'A':
-                        if (precio > 0) {
-                            codigoDescuento = prompt(`Ingrese su cupón de descuento:`);
-                            precioDescuento = cuponDescuento(codigoDescuento, precio);
-                            precioDescuento = precioDescuento.toFixed(2);
-                            if (precioDescuento == -1) {
-                                alert(`COMPRA SIN DESCUENTO \n No se ingresaron cupones válidos, total original ${monDePago} ${precio} \n ¡Gracias por su compra!`);
-                            }
-                            else {
-                                alert(`DESCUENTO APROBADO \n El precio con el descuento es: ${monDePago} ${precioDescuento} \n El precio original era de: ${monDePago} ${precio} \n ¡Gracias por su compra!`);
-                            }
-                            return 0;
-                        } else {
-                            alert(`Primero agregue productos a su carrito`);
-                        }
-                        break;
-                    case 'B':
-                        if (precio > 0) {
-                            alert(`TOTAL: ${monDePago} ${precio} \n ¡Gracias por su compra!`)
-                        }
-                        return 0;
+            case 2:
+                mostrarArreglo(productosConIVA);
+                let idEliminar = parseInt(prompt('Ingrese el ID del producto a eliminar:'));
+                if ((idEliminar <= 8) && (idEliminar >= 1)) {
+                    if (!cantidadEsCero(productosConIVA, idEliminar)) {
+                        eliminar(idEliminar);
+                        console.log(`Producto ${productosConIVA[idEliminar - 1].nombre} eliminado del carrito.`);
+                    }
+                    else {
+                        console.log(`El producto ${productosConIVA[idEliminar - 1].nombre} no está en el carrito`);
+                    }
                 }
+                else {
+                    console.log('Ingrese un valor válido');
+                }
+                break;
+            case 3:
+                mostrarArreglo(productosConIVA);
+                console.log('Buscar productos por nombre:');
+                let arrbuscar = buscador(productosConIVA);
+                mostrarArreglo(arrbuscar);
+                break;
+            case 4:
+                console.log('Ordenar de menor a mayor precio:');
+                let arrmen = menorAMayor(productosConIVA);
+                mostrarArreglo(arrmen);
+                break;
+            case 5:
+                console.log('Ordenar de mayor a menor precio:');
+                let arrmay = mayorAMenor(productosConIVA);
+                mostrarArreglo(arrmay);
+                break;
+            case 6:
+                console.log('Filtrar entre dos precios:');
+                let arrfilt = entrePrecios(productosConIVA);
+                mostrarArreglo(arrfilt);
+                break;
+            case 7:
+                const precio = precioTotal(carrito);
+                console.log(`El precio total del carrito es: UYU ${precio}`);
+                break;
+            case 8:
+                console.log(`Elija en que moneda pagará: \n 1: ${divisa[0].codigo} (Dolares) \n 2: ${divisa[1].codigo} (Pesos Argentinos)\n 3: ${divisa[2].codigo} (Reales Brasileños)`);
+                let idDivisa = parseInt(prompt(`Ingrese opción`)) - 1;
+                if ((idDivisa <= 2) && (idDivisa >= 0)) { 
+                    let carritoConvertido = conversor(carrito, divisa[idDivisa]);
+                    let preciofinal = precioTotal(carritoConvertido);
+                    mostrarArreglo(carritoConvertido);
+                    console.log(`El total de su compra es de: ${divisa[idDivisa].codigo} ${preciofinal} \n ¡GRACIAS POR SU COMPRA!`);
+                    opcion = 9;
+                }
+                else {
+                    console.log('Ingrese un valor válido');
+                } 
+                break;
             default:
-                alert(`Ingrese una opción válida`);
+                console.log('Opción inválida. Por favor, ingrese una opción válida.');
                 break;
         }
-        app = prompt(`PASOS EN ORDEN PARA COMPRAR: \n1: Carrito de compras \n2: Calcular precio total \n3: Convertir precio a diferentes divisas \n4: Finalizar compra`);
+
+        console.log('------------------------------------------');
     }
 }
 
-//programa principal
-alert(`Bienvenidos a la DEMO de mi aplicación en JavaScript \nSomos una ecommerce de plantas Japonesas en Uruguay`);
-console.log(menu())
+ejecutarPrograma();

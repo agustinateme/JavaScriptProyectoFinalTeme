@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>GINKGO</title>
-        <meta charset="UTF-8">
+        <!--SEO-->
+        <meta charset="UTF-8"> 
+        <meta name="robots" content="index, follow">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
+        <meta name="description" content="Descubre nuestra tienda online de plantas japonesas en Uruguay. Encuentra una amplia selección de hermosas plantas japonesas, ¡Embellece tu hogar con la elegancia y tranquilidad de la naturaleza japonesa!">
+        <meta name="keywords" content="plantas japonesas, tienda de plantas, naturaleza, belleza, armonía, serenidad, legado familiar, Uruguay">
+
+        <!--Links de Google Fonts-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@200;300;400;600&display=swap"
-            rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+
+        <!--Links de estilos propios-->
+        <link href="./css/style.css" rel="stylesheet">
+
+        <!--titulo-->
+        <title>GINKGO</title>
     </head>
     <body>
-        <header>
+        <header class="header">
+            <!-- HEADER -->
             <nav>
                 <ul class="header__nav--links1 listaheader">
                     <li><a href="./pages/productos.html">Productos</a></li>
@@ -39,28 +49,35 @@
             </div>
         </header>
         <main class="main">
+            <!-- GALERIA -->
+            <section class="main__ig">
+                <p>SEGUINOS EN</p>
+                <span class="logoInstagram">Instagram</span>
+            </section>
+
             <section class="main__galeria">
-                <img src="./img/galeria/galeria1.jpg" alt="">
-                <img src="./img/galeria/galeria2.jpg" alt="">
-                <img src="./img/galeria/galeria3.jpg" alt="">
-                <img src="./img/galeria/galeria4.jpg" alt="">
-                <img src="./img/galeria/galeria5.jpg" alt="">
-                <img src="./img/galeria/galeria6.jpg" alt="">
-                <img src="./img/galeria/galeria7.jpg" alt="" class="main__galeria--quitar">
-                <img src="./img/galeria/galeria8.jpg" alt="" class="main__galeria--quitar">
-                <img src="./img/galeria/galeria9.jpg" alt="" class="main__galeria--quitar">
+                <img src="./img/galeria/galeria1.jpg" alt="Tienda de plantas">
+                <img src="./img/galeria/galeria2.jpg" alt="Joven con una planta">
+                <img src="./img/galeria/galeria3.jpg" alt="Gato naranja, mascota al lado de una maceta">
+                <img src="./img/galeria/galeria4.jpg" alt="Señora con una planta">
+                <img src="./img/galeria/galeria5.jpg" alt="dos personas observando las plantas">
+                <img src="./img/galeria/galeria6.jpg" alt="plantas en la tienda">
+                <img src="./img/galeria/galeria7.jpg" alt="gata carey dentro de una maceta" class="main__galeria--quitar">
+                <img src="./img/galeria/galeria8.jpg" alt="plantas cerca de las ventanas" class="main__galeria--quitar">
+                <img src="./img/galeria/galeria9.jpg" alt="cajero de la tienda" class="main__galeria--quitar">
             </section>
         </main>
         <footer class="footer">
+            <!-- FOOTER -->
             <section class="footer__redesSociales">
-                <a href=""><img src="./img/footer/ig.png" alt=""></a>
-                <a href=""><img src="./img/footer/fb.png" alt=""></a>
-                <a href=""><img src="./img/footer/tw.png" alt=""></a>
-                <a href=""><img src="./img/footer/wpp.png" alt=""></a>
+                <a href="https://www.instagram.com/" target="_blank"><img src="./img/footer/ig.png" alt="link Instagram"></a>
+                <a href="https://es-la.facebook.com/" target="_blank"><img src="./img/footer/fb.png" alt="link Facebook"></a>
+                <a href="https://twitter.com/?lang=es" target="_blank"><img src="./img/footer/tw.png" alt="link Twitter"></a>
+                <a href="https://web.whatsapp.com/" target="_blank"><img src="./img/footer/wpp.png" alt="link Whatsapp"></a>
             </section>
 
             <section class="footer__logo">
-                <img src="./img/footer/logo.png" alt="">
+                <img src="./img/footer/logo.png" alt="logo de la tienda">
             </section>
             
             <form class="footer__suscribete">
@@ -72,7 +89,7 @@
                 </div>
             </form>
         </footer>
-
+        <!--Links de JavaScript-->
         <script src="./scripts/script.js"></script>
     </body>
 </html>
