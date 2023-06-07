@@ -1,13 +1,13 @@
 //Arreglos de productos sin IVA
 const productosSinIVA = [
-    { nombre: 'bonsai', id: 1, divisa: 'UYU', precio: 2500, cant: 0, stock: 27 },
-    { nombre: 'lirio japonés', id: 2, divisa: 'UYU', precio: 859, cant: 0, stock: 35 },
-    { nombre: 'azalea', id: 3, divisa: 'UYU', precio: 429, cant: 0, stock: 15 },
-    { nombre: 'sakura', id: 4, divisa: 'UYU', precio: 1590, cant: 0, stock: 10 },
-    { nombre: 'ginkgo', id: 5, divisa: 'UYU', precio: 2399, cant: 0, stock: 20 },
-    { nombre: 'fujibakama ', id: 6, divisa: 'UYU', precio: 599, cant: 0, stock: 12 },
-    { nombre: 'kiku', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4 },
-    { nombre: 'nadeshiko', id: 8, divisa: 'UYU', precio: 1990, cant: 0, stock: 3 },
+    { nombre: 'bonsai', id: 1, divisa: 'UYU', precio: 2500, cant: 0, stock: 27, imgA: '../img/productos/1a.jpg', imgB: '../img/productos/1b.jpg' },
+    { nombre: 'lirio japonés', id: 2, divisa: 'UYU', precio: 859, cant: 0, stock: 35, imgA: '../img/productos/2a.jpg', imgB: '../img/productos/2b.jpg' },
+    { nombre: 'azalea', id: 3, divisa: 'UYU', precio: 429, cant: 0, stock: 15, imgA: '../img/productos/3a.jpg', imgB: '../img/productos/3b.jpg' },
+    { nombre: 'sakura', id: 4, divisa: 'UYU', precio: 1590, cant: 0, stock: 10, imgA: '../img/productos/4a.jpg', imgB: '../img/productos/4b.jpg' },
+    { nombre: 'ginkgo', id: 5, divisa: 'UYU', precio: 2399, cant: 0, stock: 20, imgA: '../img/productos/5a.jpg', imgB: '../img/productos/5b.jpg' },
+    { nombre: 'fujibakama ', id: 6, divisa: 'UYU', precio: 599, cant: 0, stock: 12, imgA: '../img/productos/6a.jpg', imgB: '../img/productos/6b.jpg' },
+    { nombre: 'kiku', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4, imgA: '../img/productos/7a.jpg', imgB: '../img/productos/7b.jpg' },
+    { nombre: 'nadeshiko', id: 8, divisa: 'UYU', precio: 1990, cant: 0, stock: 3, imgA: '../img/productos/8a.jpg', imgB: '../img/productos/8b.jpg' },
 ];
 
 let carrito = [];
@@ -22,6 +22,8 @@ const productosConIVA = productosSinIVA.map((prod) => {
         precio: parseFloat((prod.precio * IVA_FACTOR).toFixed(2)),
         cant: prod.cant,
         stock: prod.stock,
+        imgA: prod.imgA,
+        imgB: prod.imgB,
     };
 });
 
@@ -55,6 +57,8 @@ function conversor(arreglo, divisa) {
             precio: parseFloat((prod.precio / divisa.valor).toFixed(2)),
             cant: prod.cant,
             stock: prod.cant,
+            imgA: prod.imgA,
+            imgB: prod.imgB,
         };
     });
     return conversion;
@@ -145,103 +149,64 @@ function precioTotal(arreglo) {
     return total;
 }
 
-//Programa que muestra id, nombre, precio y cantidad de elementos de un arreglo
-function mostrarArreglo(arreglo) {
-    arreglo.forEach((prod) => {
-        console.log(`id ${prod.id}: ${prod.nombre} ${prod.divisa} ${prod.precio}, (agregado al carrito: ${prod.cant} producto/s)`);
+//funcion que muestra los productos en la página productos
+function mostrarProductos(arreglo) {
+    //accedo al id del contenedor principal
+    let contenedorProductos = document.getElementById('productos-container');
+    arreglo.forEach(producto => {
+
+        //creo un contenedor div para cada producto
+        let cartaProducto = document.createElement('div');
+
+        //agrego la clase a cada contenedor
+        cartaProducto.classList.add('producto-card');
+
+        //creo el contenido que tendra cada contenedor de producto
+        cartaProducto.innerHTML = `
+            <img class="productos__img" src="${producto.imgA}" data-hover="${producto.imgB}">
+            <h2 class = 'productos__titulo'>${producto.nombre}</h2>
+            <p class = 'productos__precio'>${producto.divisa} ${producto.precio}</p>
+            <p class="productos__stock">Stock: ${producto.stock - producto.cant}</p>
+            <button class = 'productos__btn'>COMPRAR</button>
+        `;
+
+        //agrego los contenedores de los productos al contenedor principal
+        contenedorProductos.appendChild(cartaProducto);
+
+        //cada vez que se clickea un botón de compra se agrega el producto al carrito
+        let botonComprar = cartaProducto.querySelector('.productos__btn');
+        botonComprar.addEventListener('click', () => {
+            //Con el evento click agrego el producto al carrito si tengo stock disponible, si no lo hay no hago nada
+            if (hayStock(productosConIVA, producto.id)) {
+                agregar(productosConIVA, producto.id);
+                const stockElement = cartaProducto.querySelector('.productos__stock');
+                stockElement.textContent = `Stock: ${producto.stock - producto.cant}`;
+            }
+        });
     });
 }
-
-//Programa que muestra las opciones del menú interactivo
-function mostrarMenu() {
-    console.log('\n 1. Agregar producto al carrito \n 2. Eliminar producto del carrito \n 3. Buscador \n 4. Ordenar de menor a mayor \n 5. Ordenar de mayor a menor \n 6. Filtrar entre dos precios \n 7. Precio total \n 8. Comprar \n 9. Salir');
-}
+mostrarProductos(productosConIVA)
 
 
-//PROGRAMA PRINCIPAL
-function ejecutarPrograma() {
-    let opcion = 0;
-    while (opcion !== 9) {
-        mostrarMenu();
-        opcion = parseInt(prompt('Ingrese una opción:'));
-        switch (opcion) {
-            case 1:
-                mostrarArreglo(productosConIVA);
-                let idAgregar = parseInt(prompt('Ingrese el ID del producto a agregar:'));
-                if ((idAgregar <= 8) && (idAgregar >= 1)) {
-                    if (hayStock(productosConIVA, idAgregar)) {
-                        agregar(productosConIVA, idAgregar);
-                        console.log(`Producto ${productosConIVA[idAgregar - 1].nombre} agregado al carrito.`);
-                    }
-                    else {
-                        console.log(`No hay stock de ${productosConIVA[idAgregar - 1].nombre}.`);
-                    } 
-                } else {
-                    console.log('Ingrese un valor válido');
-                }
-                break;
-            case 2:
-                mostrarArreglo(productosConIVA);
-                let idEliminar = parseInt(prompt('Ingrese el ID del producto a eliminar:'));
-                if ((idEliminar <= 8) && (idEliminar >= 1)) {
-                    if (!cantidadEsCero(productosConIVA, idEliminar)) {
-                        eliminar(idEliminar);
-                        console.log(`Producto ${productosConIVA[idEliminar - 1].nombre} eliminado del carrito.`);
-                    }
-                    else {
-                        console.log(`El producto ${productosConIVA[idEliminar - 1].nombre} no está en el carrito`);
-                    }
-                }
-                else {
-                    console.log('Ingrese un valor válido');
-                }
-                break;
-            case 3:
-                mostrarArreglo(productosConIVA);
-                console.log('Buscar productos por nombre:');
-                let arrbuscar = buscador(productosConIVA);
-                mostrarArreglo(arrbuscar);
-                break;
-            case 4:
-                console.log('Ordenar de menor a mayor precio:');
-                let arrmen = menorAMayor(productosConIVA);
-                mostrarArreglo(arrmen);
-                break;
-            case 5:
-                console.log('Ordenar de mayor a menor precio:');
-                let arrmay = mayorAMenor(productosConIVA);
-                mostrarArreglo(arrmay);
-                break;
-            case 6:
-                console.log('Filtrar entre dos precios:');
-                let arrfilt = entrePrecios(productosConIVA);
-                mostrarArreglo(arrfilt);
-                break;
-            case 7:
-                const precio = precioTotal(carrito);
-                console.log(`El precio total del carrito es: UYU ${precio}`);
-                break;
-            case 8:
-                console.log(`Elija en que moneda pagará: \n 1: ${divisa[0].codigo} (Dolares) \n 2: ${divisa[1].codigo} (Pesos Argentinos)\n 3: ${divisa[2].codigo} (Reales Brasileños)`);
-                let idDivisa = parseInt(prompt(`Ingrese opción`)) - 1;
-                if ((idDivisa <= 2) && (idDivisa >= 0)) { 
-                    let carritoConvertido = conversor(carrito, divisa[idDivisa]);
-                    let preciofinal = precioTotal(carritoConvertido);
-                    mostrarArreglo(carritoConvertido);
-                    console.log(`El total de su compra es de: ${divisa[idDivisa].codigo} ${preciofinal} \n ¡GRACIAS POR SU COMPRA!`);
-                    opcion = 9;
-                }
-                else {
-                    console.log('Ingrese un valor válido');
-                } 
-                break;
-            default:
-                console.log('Opción inválida. Por favor, ingrese una opción válida.');
-                break;
-        }
+//obtengo todas las imágenes de producto por su clase
+let productosImg = document.querySelectorAll('.productos__img');
 
-        console.log('------------------------------------------');
-    }
-}
+//recorro todas las imagenes y agrego los eventos de mouse para cada una
+productosImg.forEach(function (img) {
+    //guardo la imagen original
+    let originalSrc = img.src;
 
-ejecutarPrograma();
+    //guardo la imagen secundaria que tengo en data-hover
+    let hoverSrc = img.getAttribute('data-hover');
+
+    //defino el evento mouseover para cambiar a la imagen secundaria al hacer hover
+    img.addEventListener('mouseover', function () {
+        img.src = hoverSrc;
+    });
+
+    //defino el evento mouseout para restaurar a la imagen original al dejar de hacer hover
+    img.addEventListener('mouseout', function () {
+        img.src = originalSrc;
+    });
+});
+

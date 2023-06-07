@@ -254,6 +254,7 @@
     }
     .listaheader, .header__nav--logo {
         margin-bottom: 0;
+        padding: 0;
     }
 }
 
@@ -424,6 +425,7 @@
     }
 
     /*HEADER DEMÁS PÁGINAS*/
+
     .header-pag{
         background-color: white;
     }
@@ -523,3 +525,50 @@
     }
 }
 
+#productos-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+.producto-card {
+    margin: 2rem;
+}
+
+.productos__titulo {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0.5rem 0;
+}
+.productos__precio {
+    font-size: 1rem;
+    font-weight: 800;
+    margin: 0.5rem 0;
+}
+.productos__stock {
+    font-size: 0.9rem;
+    color: #23b98c;
+    margin: 0.5rem 0;
+}
+.productos__img {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    margin: 0.5rem 0;
+}
+
+.productos__btn {
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: white;
+    background-color: #FE654F;
+    border-radius: 0.2rem;
+    border: none;
+    padding: 0.5rem;
+}
+
+.productos__btn:hover {
+    background-color: #dd503b;
+}
