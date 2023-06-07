@@ -92,6 +92,9 @@
 
 /*RESPONSIVE PHONE*/
 @media only screen and (max-width: 1023px) { 
+    .banner-desktop {
+        display: none;
+    }
     /*HEADER*/
     header {
         background-image: url('../img/header/b1.jpg');
@@ -234,25 +237,31 @@
 
     /*HEADER DEMÁS PÁGINAS*/
     .nav-pag #header-img1:hover {
-        content: url("../img/header/perfil4.png");
+        content: url("../img/header/perfil3.png");
         width: 1.5rem;
     }   
     .nav-pag #header-img2:hover {
-        content: url("../img/header/carrito4.png");
+        content: url("../img/header/carrito3.png");
         width: 1.5rem;
     }   
     .nav-pag #header-img3:hover {
-        content: url("../img/header/favorito4.png");
+        content: url("../img/header/favorito3.png");
         width: 1.5rem;
     }
     .nav-pag .header__nav--logo:hover, .header__nav--links1 li a:hover{
-        color: #FE654F;
+        color: #23b98c;
         cursor: pointer;
+    }
+    .listaheader, .header__nav--logo {
+        margin-bottom: 0;
     }
 }
 
 /*RESPONSIVE DESKTOP*/
 @media only screen and (min-width: 1024px) {
+    .banner-phone {
+        display: none;
+    }
     /*HEADER INDEX*/
     .header {
         background-image: url('../img/header/b1.jpg');
@@ -395,6 +404,7 @@
         grid-template-columns: 1fr 1fr 1fr;
         align-items: center;
         justify-items: center;
+        padding: 1rem 0;
     }
     .footer__suscribete {
         font-size: 1rem;
@@ -415,28 +425,52 @@
 
     /*HEADER DEMÁS PÁGINAS*/
     .header-pag{
-        background-color: #23b98c;
+        background-color: white;
     }
+    .nav-pag nav{
+        background-image: none;
+        background-color: rgb(255, 255, 255);
+    }
+    .nav-pag a, .nav-pag .header__nav--logo {
+        color: black;
+    }
+    
+    .nav-pag #header-img1 {
+        content: url("../img/header/perfil1.png");
+        width: 2rem;
+    }   
+    .nav-pag #header-img2 {
+        content: url("../img/header/carrito1.png");
+        width: 2rem;
+    }   
+    .nav-pag #header-img3 {
+        content: url("../img/header/favorito1.png");
+        width: 2rem;
+    } 
+
     .nav-pag:hover #header-img1:hover {
-        content: url("../img/header/perfil4.png");
+        content: url("../img/header/perfil3.png");
         width: 2rem;
     }   
     .nav-pag:hover #header-img2:hover {
-        content: url("../img/header/carrito4.png");
+        content: url("../img/header/carrito3.png");
         width: 2rem;
     }   
     .nav-pag:hover #header-img3:hover {
-        content: url("../img/header/favorito4.png");
+        content: url("../img/header/favorito3.png");
         width: 2rem;
     }   
     
     .nav-pag:hover .header__nav--logo:hover {
-        color: #FE654F;
+        color: #23b98c;
         cursor: pointer;
     }
     .nav-pag .header__nav--links1 li:hover a {
-        background-color: #FE654F;
+        background-color: #23b98c;
         border-radius: 0.5rem;
+    }
+    .listaheader, .header__nav--logo {
+        margin-bottom: 0;
     }
 
     /*NOSOTROS*/
@@ -488,3 +522,4 @@
         margin: 1rem;
     }
 }
+

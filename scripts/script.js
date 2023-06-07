@@ -6,7 +6,7 @@ const productosSinIVA = [
     { nombre: 'sakura', id: 4, divisa: 'UYU', precio: 1590, cant: 0, stock: 10 },
     { nombre: 'ginkgo', id: 5, divisa: 'UYU', precio: 2399, cant: 0, stock: 20 },
     { nombre: 'fujibakama ', id: 6, divisa: 'UYU', precio: 599, cant: 0, stock: 12 },
-    { nombre: 'kiku ', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4 },
+    { nombre: 'kiku', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4 },
     { nombre: 'nadeshiko', id: 8, divisa: 'UYU', precio: 1990, cant: 0, stock: 3 },
 ];
 
