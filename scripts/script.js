@@ -210,3 +210,18 @@ productosImg.forEach(function (img) {
     });
 });
 
+
+
+
+
+/*
+var fechaActual = new Date();
+console.log(fechaActual);
+// Obtener el número del día actual (0: domingo, 1: lunes, ..., 6: sábado)
+var diaActual = fechaActual.getDay();
+
+if (diaActual === 5) {
+    //5 equivale al día viernes
+    //si es viernes aplico descuento de black friday (luego debo expecificar los descuentos aplicados)
+}
+*/

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!--SEO-->
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Inicia sesión en nuestro sitio web para acceder a tu cuenta y disfrutar de todas nuestras funcionalidades. Ingresa tus credenciales y obtén acceso a contenido exclusivo.">
+    <meta name="keywords" content="plantas japonesas, tienda de plantas, naturaleza, belleza, armonía, serenidad, legado familiar, Uruguay">
+
+    <!--Links de Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@200;300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+
+    <!--Links de bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <!--Links de estilos propios-->
+    <link href="../css/style.css" rel="stylesheet">
+
+    <!--titulo-->
+    <title>GINKGO - Iniciar Sesión</title>
+</head>
+
+<body>
+    <div class="contendedor--principal">
+        <form id="loginForm" class="formUsuario">
+            <input type="email" placeholder="E-mail" id="email-login" required autofocus>
+            <input type="password" placeholder="Contraseña" id="password-login" required>
+            <div id="contenedor-spinner"></div>
+            <button type="submit" class="boton" id="boton">Ingresar</button>
+            <p id="email-error" class="errors"></p>
+        </form>
+        <p id="contendedor--principal--p">¿No tienes una cuenta? <a href="./signup.html">Registrate</a> </p>
+    </div>
+    <!--Links de JavaScript-->
+    <script src="../scripts/login.js"></script>
+</body>
+</html>

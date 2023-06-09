@@ -256,6 +256,20 @@
         margin-bottom: 0;
         padding: 0;
     }
+
+    /*LOGIN Y SIGNUP*/
+    .formUsuario {
+        width: 19rem;
+        padding: 1.1rem;
+    }
+
+    .formUsuario input, #contendedor--principal--p, .errors {
+        font-size: 0.875rem;
+    }
+    #boton{
+        font-size: 1.3rem;
+    }
+    
 }
 
 /*RESPONSIVE DESKTOP*/
@@ -523,6 +537,18 @@
     .nosotros__historia div section p {
         margin: 1rem;
     }
+
+    /*LOGIN Y SIGNUP*/
+    .formUsuario {
+        padding: 1.5rem;
+    }
+
+    .formUsuario input, #contendedor--principal--p, .errors {
+        font-size: 1rem;
+    }
+    #boton{
+        font-size: 1.5rem;
+    }
 }
 
 #productos-container {
@@ -569,6 +595,72 @@
     padding: 0.5rem;
 }
 
-.productos__btn:hover {
+.productos__btn:hover, #btn--suscribete:hover {
     background-color: #dd503b;
+}
+
+
+/*LOGIN Y SIGNUP*/
+.contendedor--principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(../img/header/b1.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    gap: 60px;
+}
+
+.formUsuario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    background-color: #23b98c67;
+    width: auto;
+    height: auto;
+
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.2), 0 5px 5px 0 rgba(0,0,0,0.2);
+}
+
+.formUsuario input, #boton {
+    outline: 0;
+    font-weight: 400;
+    background-color: rgba(0, 0, 0, 0.493);
+    color: white;
+    width: 16rem;
+    height: 3.5rem;
+    border: none;
+    margin: 1rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+#boton {
+    font-family: 'Bebas Neue', cursive;
+    background-color: #23b98c;
+    color: white;
+}
+
+#contendedor--principal--p, #contendedor--principal--p a {
+    color: white;
+    margin: 0 0.5rem;
+}
+
+#contendedor--principal--p a {
+    text-decoration: none;
+    color: #23b98c;
+}
+
+.errors {
+    color: white;
+    margin: 0;
 }
