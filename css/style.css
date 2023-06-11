@@ -849,12 +849,14 @@
     grid-template-rows: 1fr;
     justify-items: center;
     align-items: center;
-
 }
-
+#car__productos-elementos div {
+    margin:1rem 0;
+}
 #car-cant {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 #boton-menos {
@@ -865,6 +867,7 @@
 }
 #boton-mas,#boton-menos {
     padding: 0.3rem 0.5rem;
+    height: auto;
     background-color: #23b98c67;
     border: none;
 }
@@ -875,7 +878,9 @@
     padding: 0.3rem 0.5rem;
     background-color: white;
 }
-
+#car-cant1 div {
+    font-weight: bold;
+}
 
 /*PEDIDO -> RESUMEN*/
 .car__pedido-resumen--stretch {
@@ -975,6 +980,11 @@
 .comprarP1:hover {
     background-color: rgba(0, 0, 0, 0.692);
 }
+
+.choose-divisa {
+    
+}
+
 
 
 /*ENVÍO*/

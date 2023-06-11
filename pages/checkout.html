@@ -31,7 +31,7 @@
     <link href="../css/style.css" rel="stylesheet">
 
     <!--titulo-->
-    <title>GINKGO - Carrito</title>
+    <title>GINKGO - Checkout</title>
 </head>
 
 <body>
@@ -68,8 +68,8 @@
                     <p id="car-Ttotal">Total</p>
                 </div>
                 <div id="ContCarrito">
-                    
-                </div>         
+
+                </div>
             </div>
             <div class="car__pedido">
                 <h2 class="car__pedido-titulo">Resumen del pedido</h2>
@@ -78,10 +78,38 @@
                         <p class="car__pedido-resumen--normal">Sub total:</p>
                         <p id="subTotal"></p>
                     </div>
+                    <div class="car__pedido-resumen--stretch">
+                        <p class="car__pedido-resumen--normal">Precio de envío:</p>
+                        <p id="envio"></p>
+                    </div class="car__pedido-resumen--stretch">
+                    <div id="car__pedido-resumen__descuentos" class="car__pedido-resumen--stretch">
+
+                    </div>
+                    <hr>
+                    <div class="car__pedido-resumen--stretch">
+                        <p class="car__pedido-resumen--importante">TOTAL:</p>
+                        <p id="total"></p>
+                    </div>
                 </div>
-                <button class="comprarP1" id="buy">Procede al pago</button>
+                <div class="car__pedido-cupones">
+                    <form id="form-cupones">
+                        <input type="text" placeholder="Ingresar cupones" id="cupon">
+                        <button type="submit">AGREGAR</button>
+                    </form>
+                </div>
+                <button class="comprarP1" id="buy">COMPRAR</button>
+                <div class="choose-divisa">
+                    <label for="envio">UYU</label>
+                    <input type="radio" name="divisaElegida" id="UYU" checked>
+                    <label for="envio">USD</label>
+                    <input type="radio" name="divisaElegida" id="USD" class="choose-div">
+                    <label for="envio">ARS</label>
+                    <input type="radio" name="divisaElegida" id="ARS" class="choose-div">
+                    <label for="envio">BRL</label>
+                    <input type="radio" name="divisaElegida" id="BRL" class="choose-div">
+                </div>
             </div>
-            <div class="car__envioYpago">
+            <div class="car__envioYpago" id="car__envioYpago">
                 
             </div>
         </div>
@@ -89,16 +117,20 @@
     <footer class="footer">
         <!-- FOOTER -->
         <section class="footer__redesSociales">
-            <a href="https://www.instagram.com/" target="_blank"><img src="../img/footer/ig.png" alt="link Instagram"></a>
-            <a href="https://es-la.facebook.com/" target="_blank"><img src="../img/footer/fb.png" alt="link Facebook"></a>
-            <a href="https://twitter.com/?lang=es" target="_blank"><img src="../img/footer/tw.png" alt="link Twitter"></a>
-            <a href="https://web.whatsapp.com/" target="_blank"><img src="../img/footer/wpp.png" alt="link Whatsapp"></a>
+            <a href="https://www.instagram.com/" target="_blank"><img src="../img/footer/ig.png"
+                    alt="link Instagram"></a>
+            <a href="https://es-la.facebook.com/" target="_blank"><img src="../img/footer/fb.png"
+                    alt="link Facebook"></a>
+            <a href="https://twitter.com/?lang=es" target="_blank"><img src="../img/footer/tw.png"
+                    alt="link Twitter"></a>
+            <a href="https://web.whatsapp.com/" target="_blank"><img src="../img/footer/wpp.png"
+                    alt="link Whatsapp"></a>
         </section>
-    
+
         <section class="footer__logo">
             <img src="../img/footer/logo.png" alt="logo de la tienda">
         </section>
-    
+
         <form class="footer__suscribete">
             <p id="suscribete--title">¡Suscríbete a nuestras noticias!</p>
             <p id="suscribete--subtitle">consigue un 5% de descuento en tu primera compra</p>
@@ -109,6 +141,7 @@
         </form>
     </footer>
     <!--Links de JavaScript-->
-    <script src="../scripts/car.js"></script>
+    <script src="../scripts/checkout.js"></script>
 </body>
+
 </html>

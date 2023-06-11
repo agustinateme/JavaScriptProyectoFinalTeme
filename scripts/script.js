@@ -37,40 +37,12 @@ const productosConIVA = productosSinIVA.map((prod) => {
     };
 });
 
-//Arreglos de objetos divisa
-const divisa = [
-    { codigo: 'USD', valorOrigen: 38.68, codigoDestino: 'UYU', valorDestino: 1},
-    { codigo: 'ARS', valorOrigen: 0.16, codigoDestino: 'UYU', valorDestino: 1},
-    { codigo: 'BRL', valorOrigen: 7.76, codigoDestino: 'UYU', valorDestino: 1},
-    {codigoOrigen: 'USD', valorOrigen: 38.68, codigoDestino: 'ARS', valorDestino: 0.16},
-    {codigoOrigen: 'USD', valorOrigen: 38.68, codigoDestino: 'BRL', valorDestino: 7.76},
-    {codigoOrigen: 'ARS', valorOrigen: 0.16, codigoDestino: 'USD', valorDestino: 38.68},
-    {codigoOrigen: 'ARS', valorOrigen: 0.16, codigoDestino: 'BRL', valorDestino: 7.76},
-    {codigoOrigen: 'BRL', valorOrigen: 7.76, codigoDestino: 'USD', valorDestino: 38.68},
-    {codigoOrigen: 'BRL', valorOrigen: 7.76, codigoDestino: 'ARS', valorDestino: 0.16},
-];
+
 
 //función que retorna true si hay stock
 function hayStock(arreglo, id) {
     id = id - 1;
     return arreglo[id].cant < arreglo[id].stock;
-}
-
-//Función que retorna un arreglo con el precio modificado según la divisa
-function conversor(arreglo, divisa) {
-    const conversion = arreglo.map((prod) => {
-        return {
-            nombre: prod.nombre,
-            id: prod.id,
-            divisa: divisa.codigo,
-            precio: parseFloat((prod.precio / divisa.valor).toFixed(2)),
-            cant: prod.cant,
-            stock: prod.stock,
-            imgA: prod.imgA,
-            imgB: prod.imgB,
-        };
-    });
-    return conversion;
 }
 
 //Función que retorna un arreglo filtrado de menor a mayor
