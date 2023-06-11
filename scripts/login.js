@@ -29,10 +29,18 @@ loginForm.addEventListener('submit', (e) => {
             }, 3000);
             
         } else {
-            texterror.innerHTML = 'Usuario y/o contraseña incorrectos';
+            spinner.innerHTML = `
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            `;
             setTimeout(() => {
-                texterror.innerHTML = '';
-            }, 5000);
+                spinner.innerHTML = '';
+                texterror.innerHTML = 'Usuario y/o contraseña incorrectos';
+                setTimeout(() => {
+                    texterror.innerHTML = '';
+                }, 5000);
+            }, 2000);
         }
     } else {
         console.log('No se encontraron datos de usuarios registrados');

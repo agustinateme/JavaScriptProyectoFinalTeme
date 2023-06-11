@@ -1,13 +1,22 @@
+let baseDeDatosPROD = localStorage.getItem('CARRITO:'); // Obtener los datos almacenados en el localStorage
+
+if (!baseDeDatosPROD) {
+    // Si no existe una base de datos, creo una nueva
+    const arreglo = [];
+    baseDeDatosPROD = JSON.stringify(arreglo);
+    localStorage.setItem('CARRITO:', baseDeDatosPROD);
+}
+
 //Arreglos de productos sin IVA
 const productosSinIVA = [
-    { nombre: 'bonsai', id: 1, divisa: 'UYU', precio: 2500, cant: 0, stock: 27, imgA: '../img/productos/1a.jpg', imgB: '../img/productos/1b.jpg' },
-    { nombre: 'lirio japonés', id: 2, divisa: 'UYU', precio: 859, cant: 0, stock: 35, imgA: '../img/productos/2a.jpg', imgB: '../img/productos/2b.jpg' },
-    { nombre: 'azalea', id: 3, divisa: 'UYU', precio: 429, cant: 0, stock: 15, imgA: '../img/productos/3a.jpg', imgB: '../img/productos/3b.jpg' },
-    { nombre: 'sakura', id: 4, divisa: 'UYU', precio: 1590, cant: 0, stock: 10, imgA: '../img/productos/4a.jpg', imgB: '../img/productos/4b.jpg' },
-    { nombre: 'ginkgo', id: 5, divisa: 'UYU', precio: 2399, cant: 0, stock: 20, imgA: '../img/productos/5a.jpg', imgB: '../img/productos/5b.jpg' },
-    { nombre: 'fujibakama ', id: 6, divisa: 'UYU', precio: 599, cant: 0, stock: 12, imgA: '../img/productos/6a.jpg', imgB: '../img/productos/6b.jpg' },
-    { nombre: 'kiku', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4, imgA: '../img/productos/7a.jpg', imgB: '../img/productos/7b.jpg' },
-    { nombre: 'nadeshiko', id: 8, divisa: 'UYU', precio: 1990, cant: 0, stock: 3, imgA: '../img/productos/8a.jpg', imgB: '../img/productos/8b.jpg' },
+    { nombre: 'bonsai', id: 1, divisa: 'UYU', precio: 2500, cant: 0, stock: 27, imgA: '../img/productos/1a.jpg', imgB: '../img/productos/1b.jpg', fav: false },
+    { nombre: 'lirio japonés', id: 2, divisa: 'UYU', precio: 859, cant: 0, stock: 35, imgA: '../img/productos/2a.jpg', imgB: '../img/productos/2b.jpg', fav: false },
+    { nombre: 'azalea', id: 3, divisa: 'UYU', precio: 429, cant: 0, stock: 15, imgA: '../img/productos/3a.jpg', imgB: '../img/productos/3b.jpg', fav: false },
+    { nombre: 'sakura', id: 4, divisa: 'UYU', precio: 1590, cant: 0, stock: 10, imgA: '../img/productos/4a.jpg', imgB: '../img/productos/4b.jpg', fav: false },
+    { nombre: 'ginkgo', id: 5, divisa: 'UYU', precio: 2399, cant: 0, stock: 20, imgA: '../img/productos/5a.jpg', imgB: '../img/productos/5b.jpg', fav: false },
+    { nombre: 'fujibakama ', id: 6, divisa: 'UYU', precio: 599, cant: 0, stock: 12, imgA: '../img/productos/6a.jpg', imgB: '../img/productos/6b.jpg', fav: false },
+    { nombre: 'kiku', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4, imgA: '../img/productos/7a.jpg', imgB: '../img/productos/7b.jpg', fav: false },
+    { nombre: 'nadeshiko', id: 8, divisa: 'UYU', precio: 1990, cant: 0, stock: 3, imgA: '../img/productos/8a.jpg', imgB: '../img/productos/8b.jpg', fav: false },
 ];
 
 let carrito = [];
@@ -24,21 +33,22 @@ const productosConIVA = productosSinIVA.map((prod) => {
         stock: prod.stock,
         imgA: prod.imgA,
         imgB: prod.imgB,
+        fav: prod.fav,
     };
 });
 
 //Arreglos de objetos divisa
 const divisa = [
-    { codigo: 'USD', valor: 38.68 },
-    { codigo: 'ARS', valor: 0.16 },
-    { codigo: 'BRL', valor: 7.76 },
+    { codigo: 'USD', valorOrigen: 38.68, codigoDestino: 'UYU', valorDestino: 1},
+    { codigo: 'ARS', valorOrigen: 0.16, codigoDestino: 'UYU', valorDestino: 1},
+    { codigo: 'BRL', valorOrigen: 7.76, codigoDestino: 'UYU', valorDestino: 1},
+    {codigoOrigen: 'USD', valorOrigen: 38.68, codigoDestino: 'ARS', valorDestino: 0.16},
+    {codigoOrigen: 'USD', valorOrigen: 38.68, codigoDestino: 'BRL', valorDestino: 7.76},
+    {codigoOrigen: 'ARS', valorOrigen: 0.16, codigoDestino: 'USD', valorDestino: 38.68},
+    {codigoOrigen: 'ARS', valorOrigen: 0.16, codigoDestino: 'BRL', valorDestino: 7.76},
+    {codigoOrigen: 'BRL', valorOrigen: 7.76, codigoDestino: 'USD', valorDestino: 38.68},
+    {codigoOrigen: 'BRL', valorOrigen: 7.76, codigoDestino: 'ARS', valorDestino: 0.16},
 ];
-
-//función que retorna true si el carrito está vacío
-function cantidadEsCero(arreglo, id) {
-    id = id - 1;
-    return arreglo[id].cant === 0;
-}
 
 //función que retorna true si hay stock
 function hayStock(arreglo, id) {
@@ -47,7 +57,6 @@ function hayStock(arreglo, id) {
 }
 
 //Función que retorna un arreglo con el precio modificado según la divisa
-//Se le pasa un arreglo y un objeto divisa
 function conversor(arreglo, divisa) {
     const conversion = arreglo.map((prod) => {
         return {
@@ -56,7 +65,7 @@ function conversor(arreglo, divisa) {
             divisa: divisa.codigo,
             precio: parseFloat((prod.precio / divisa.valor).toFixed(2)),
             cant: prod.cant,
-            stock: prod.cant,
+            stock: prod.stock,
             imgA: prod.imgA,
             imgB: prod.imgB,
         };
@@ -97,10 +106,8 @@ function mayorAMenor(arreglo) {
 }
 
 //Función que recibe un arreglo y devuelve otro filtrado entre dos precios
-function entrePrecios(arreglo) {
-    let pMenor = prompt('Ingrese precio inferior:');
-    let pMayor = prompt('Ingrese precio superior:');
-    const aFiltrado = arreglo.filter((prod) => prod.precio > pMenor && prod.precio < pMayor);
+function entrePrecios(arreglo, pMenor, pMayor) {
+    const aFiltrado = arreglo.filter((prod) => prod.precio >= pMenor && prod.precio <= pMayor);
     if (aFiltrado.length == 0) {
         console.log(`No hay productos en el rango de precios dado`);
     }
@@ -108,8 +115,7 @@ function entrePrecios(arreglo) {
 }
 
 //Función que recibe un arreglo y devuelve otro filtrado por nombre (buscador)
-function buscador(arreglo) {
-    search = prompt('Busqueda por nombre:');
+function buscador(arreglo, search) {
     const aFiltrado = arreglo.filter((prod) =>
         prod.nombre.includes(search.toLowerCase())
     );
@@ -143,11 +149,7 @@ function eliminar(id) {
     productosConIVA[id].cant--;
 }
 
-//Función que devuelve el precio total de un arreglo
-function precioTotal(arreglo) {
-    const total = arreglo.reduce((acum, prod) => acum + parseFloat(prod.precio * prod.cant), 0).toFixed(2);
-    return total;
-}
+
 
 //funcion que muestra los productos en la página productos
 function mostrarProductos(arreglo) {
@@ -181,34 +183,83 @@ function mostrarProductos(arreglo) {
                 agregar(productosConIVA, producto.id);
                 const stockElement = cartaProducto.querySelector('.productos__stock');
                 stockElement.textContent = `Stock: ${producto.stock - producto.cant}`;
+
+                baseDeDatosPROD = JSON.stringify(carrito);
+                localStorage.setItem('CARRITO:', baseDeDatosPROD);
             }
+        });
+
+        // eventos de mouse para cada imagen de producto
+        let img = cartaProducto.querySelector('.productos__img');
+        let originalSrc = img.src;
+        let hoverSrc = img.getAttribute('data-hover');
+
+        img.addEventListener('mouseover', function () {
+            img.src = hoverSrc;
+        });
+
+        img.addEventListener('mouseout', function () {
+            img.src = originalSrc;
         });
     });
 }
+
+// función para limpiar los productos mostrados en la página
+function limpiarProductos() {
+    let contenedorProductos = document.getElementById('productos-container');
+    while (contenedorProductos.firstChild) {
+        contenedorProductos.removeChild(contenedorProductos.firstChild);
+    }
+}
+
 mostrarProductos(productosConIVA)
 
 
-//obtengo todas las imágenes de producto por su clase
-let productosImg = document.querySelectorAll('.productos__img');
 
-//recorro todas las imagenes y agrego los eventos de mouse para cada una
-productosImg.forEach(function (img) {
-    //guardo la imagen original
-    let originalSrc = img.src;
+let formBusqueda = document.getElementById('search-form');
+formBusqueda.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let buscarnombre = document.getElementById('searchInput').value;
+    let encontrado = buscador(productosConIVA, buscarnombre);
 
-    //guardo la imagen secundaria que tengo en data-hover
-    let hoverSrc = img.getAttribute('data-hover');
-
-    //defino el evento mouseover para cambiar a la imagen secundaria al hacer hover
-    img.addEventListener('mouseover', function () {
-        img.src = hoverSrc;
-    });
-
-    //defino el evento mouseout para restaurar a la imagen original al dejar de hacer hover
-    img.addEventListener('mouseout', function () {
-        img.src = originalSrc;
-    });
+    //limpiar productos antes de mostrar los nuevos resultados
+    limpiarProductos();
+    mostrarProductos(encontrado);
 });
+
+let ordenMenor = document.getElementById('menorA');
+ordenMenor.addEventListener('click', (e) => {
+    let encontrado = menorAMayor(productosConIVA);
+    limpiarProductos();
+    mostrarProductos(encontrado);
+});
+
+let ordenMayor = document.getElementById('mayorA');
+ordenMayor.addEventListener('click', (e) => {
+    let encontrado = mayorAMenor(productosConIVA);
+    limpiarProductos();
+    mostrarProductos(encontrado);
+});
+
+
+let entre2precios = document.getElementById('entrePrecios');
+entre2precios.addEventListener('click', (e) => {
+    e.preventDefault();
+    let precioInferior = document.getElementById('pInf').value;
+    let precioSuperior = document.getElementById('pSup').value;
+
+    let encontrado = entrePrecios(productosConIVA, precioInferior, precioSuperior);
+
+    //limpiar productos antes de mostrar los nuevos resultados
+    limpiarProductos();
+    mostrarProductos(encontrado);
+});
+
+
+
+
+
+
 
 
 
@@ -225,3 +276,4 @@ if (diaActual === 5) {
     //si es viernes aplico descuento de black friday (luego debo expecificar los descuentos aplicados)
 }
 */
+

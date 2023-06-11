@@ -67,6 +67,7 @@
     border: none;
 }
 #email {
+    outline: none;
     border-top-left-radius: 0.2rem;
     border-bottom-left-radius: 0.2rem;
     border: none;
@@ -269,6 +270,27 @@
     #boton{
         font-size: 1.3rem;
     }
+
+
+
+        /*CARRITO*/
+        .car {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+        }
+    
+        .car__productos {
+            grid-row: 2/3;
+
+        }
+    
+        .car__pedido {
+            grid-row: 1 / 2;
+        }
+        .car__envioYpago {
+            grid-row: 3 / 4;
+        }
     
 }
 
@@ -549,6 +571,32 @@
     #boton{
         font-size: 1.5rem;
     }
+
+
+
+
+
+    /*CARRITO*/
+        .car {
+            display: grid;
+            grid-template-columns: auto 30%;
+            grid-template-rows: auto auto;
+        }
+    
+        .car__productos {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+    
+        .car__pedido {
+            grid-column: 2 / 3;
+            grid-row: 1 / 3;
+        }
+    
+        .car__envioYpago {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+        }
 }
 
 #productos-container {
@@ -599,6 +647,58 @@
     background-color: #dd503b;
 }
 
+/*FILTROS*/
+.search-bar {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 3fr;
+    justify-items: center;
+    align-items: stretch;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+.search-bar form {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-bar form button{
+    padding: 0.5rem;
+    outline: none;
+    border: none;
+    background-color: #23b98c;
+    color: white;
+    font-weight: 800;
+    font-size: 0.8rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+}
+
+.search-bar .filter-button {
+    font-weight: 800;
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: #23b98c;
+    background-color: transparent;
+}
+
+#searchInput, #pInf, #pSup {
+    outline: none;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+}
+
+#searchInput{
+    width: 15rem;
+}
+#pInf, #pSup {
+    width: 3rem;
+}
 
 /*LOGIN Y SIGNUP*/
 .contendedor--principal {
@@ -615,7 +715,15 @@
     gap: 60px;
 }
 
+.contendedor--principal .titulo-user {
+    color: white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2rem;
+    margin: 0;
+}
+
 .formUsuario {
+    border-radius: 0.4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -625,12 +733,13 @@
     background-color: #23b98c67;
     width: auto;
     height: auto;
-
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0,0,0,0.2), 0 5px 5px 0 rgba(0,0,0,0.2);
 }
 
+
 .formUsuario input, #boton {
+    border-radius: 0.4rem;
     outline: 0;
     font-weight: 400;
     background-color: rgba(0, 0, 0, 0.493);
@@ -650,6 +759,10 @@
     color: white;
 }
 
+#boton:hover {
+    background-color: #1d8f6d;
+}
+
 #contendedor--principal--p, #contendedor--principal--p a {
     color: white;
     margin: 0 0.5rem;
@@ -663,4 +776,234 @@
 .errors {
     color: white;
     margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*CARRITO*/
+.titulo-carrito {
+    margin: 1rem 0 0 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.car {
+    gap: 1rem;
+    margin: 1rem;
+}
+.car__pedido, .car__productos, .car__envioYpago {
+    padding: 1rem;
+    background-color: #f2f2f2;
+}
+
+.car div h2, .car div p, .car__pedido h2 {
+    margin: 0;
+}
+
+.car h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+
+/*PEDIDO*/
+.car__pedido {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    align-items: stretch;
+    row-gap: 2rem;
+    font-size: 1rem;
+}
+/*PEDIDO -> PRODUCTOS*/
+.car__productos-SubTitulo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+}
+.car__productos-SubTitulo p {
+    font-weight: bold;
+}
+#car-Tarticulo {
+    grid-column: 1 / 3;
+}
+#car-Tprecio {
+    grid-column: 3 / 4;
+}
+#car-Tcant{
+    grid-column: 4 / 5;
+}
+#car-Ttotal {
+    grid-column: 5 / 6;
+}
+#car__productos-elementos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    align-items: center;
+
+}
+
+#car-cant {
+    display: flex;
+    flex-direction: row;
+}
+
+#boton-menos {
+    border-radius: 1rem 0 0 1rem;
+}
+#boton-mas {
+    border-radius: 0 1rem 1rem 0;
+}
+#boton-mas,#boton-menos {
+    padding: 0.3rem 0.5rem;
+    background-color: #23b98c67;
+    border: none;
+}
+#boton-mas:hover,#boton-menos:hover {
+    background-color: #1d8f6d;
+}
+#car-cant div {
+    padding: 0.3rem 0.5rem;
+    background-color: white;
+}
+
+
+/*PEDIDO -> RESUMEN*/
+.car__pedido-resumen--stretch {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0  0 0.5rem 0;
+}
+.car__pedido-resumen--importante {
+    font-weight: bold;
+    font-size: 1rem;
+}
+#car-img img {
+    width: 6rem;
+}
+#car-img button {
+   border: none;
+   margin: 0.5rem;
+   font-size: 1.5rem;
+   font-weight: bold;
+}
+
+
+
+
+/*PEDIDO -> RESUMEN -> DESCUENTOS*/
+#car__pedido-resumen__descuentos {
+    display: flex;
+    flex-direction: column;
+} 
+
+.tipo-descuento {
+    display: flex;
+    flex-direction: row;
+}
+
+#descuento-total, .dsubtitle {
+    color: red;
+}
+
+.dtitle {
+    color: rgb(127, 129, 127);
+    padding-right: 0.5rem;
+}
+
+.dtitle, .dsubtitle {
+    font-size: 0.875rem;
+}
+
+
+
+
+
+
+/*PEDIDO -> CUPONES*/
+#form-cupones {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    gap: 0.5rem;
+}
+
+#form-cupones input {
+    grid-column: 1 / 2;
+    outline: none;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.2rem;
+    font-size: 0.9rem;
+}
+#form-cupones button {
+    grid-column: 2 / 3;
+    background-color: #23b98c;
+    padding: 0.5rem;
+    outline: none;
+    border: none;
+    background-color: #23b98c;
+    color: white;
+    font-weight: 800;
+    font-size: 0.8rem;
+    border-radius: 0.2rem;
+}
+#form-cupones button:hover {
+    background-color: #1d8f6d;
+}
+
+/*PEDIDO -> BOTON*/
+.comprarP1 {
+    height: 4rem;
+    background-color: black;
+    color: white;
+    font-size: 1.3rem;
+    font-family:  'Bebas Neue', cursive;
+    border: none;
+    border-radius: 0.2rem;
+}
+.comprarP1:hover {
+    background-color: rgba(0, 0, 0, 0.692);
+}
+
+
+/*ENVÍO*/
+.car__envioYpago {
+    display: grid;
+    gap: 1rem;
+}
+
+.envio {
+    display: grid;
+    grid-template-columns: 3rem auto;
+    grid-template-rows: 1fr 1fr;
+    padding: 1rem 0;
+    background-color: #23b98c67;
+}
+.envio--radio {
+    grid-column: 1 / 2;
+    grid-row: 1/ 3;
+    width: 1rem;
+    place-self: center;
+}
+
+.envio--titulo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    align-self: center;
+}
+
+.envio--subtitulo {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
 }

@@ -39,12 +39,9 @@
                 <p class="header__nav--logo">Ginkgo | 銀杏</p>
             </a>
             <ul class="listaheader">
-                <li class="links2"><a href="./login.html"><img src="../img/header/perfil2.png" alt="perfil"
-                            id="header-img1"></a></li>
-                <li class="links2"><a href="./carrito.html"><img src="../img/header/carrito2.png" alt="carrito"
-                            id="header-img2"></a></li>
-                <li class="links2"><a href="./favoritos.html"><img src="../img/header/favorito2.png" alt="favorito"
-                            id="header-img3"></a></li>
+                <li class="links2"><a href="./login.html"><img src="../img/header/perfil2.png" alt="perfil" id="header-img1"></a></li>
+                <li class="links2"><a href="./carrito.html"><img src="../img/header/carrito2.png" alt="carrito" id="header-img2"></a></li>
+                <li class="links2"><a href="./favoritos.html"><img src="../img/header/favorito2.png" alt="favorito" id="header-img3"></a></li>
             </ul>
         </nav>
     </header>
@@ -132,6 +129,20 @@
             </div>
         </section>
         
+        <div class="search-bar">
+            <form id="search-form">
+                <input type="text" id="searchInput" placeholder="Buscar productos...">
+                <button>BUSCAR</button>
+            </form>
+            <button class="filter-button" id="menorA">MENOR PRECIO</button>
+            <button class="filter-button" id="mayorA">MAYOR PRECIO</button>
+            <form >
+                <input type="text" id="pInf">
+                <input type="text" id="pSup">
+                <button class="filter-button" id="entrePrecios">ENTRE 2 PRECIOS</button>
+            </form>
+            
+        </div>
 
         <!-- contenedor de productos -->
         <div id="productos-container"></div>
