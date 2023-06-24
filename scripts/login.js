@@ -1,3 +1,12 @@
+let usuario = localStorage.getItem('sesionIniciada');
+
+//Si la sesión no está iniciada
+if (!usuario) {
+    const sesion = [];
+    usuario = JSON.stringify(sesion);
+    localStorage.setItem('sesionIniciada', usuario);
+}
+
 // Obtener el formulario de ingreso
 const loginForm = document.getElementById('loginForm');
 
@@ -17,12 +26,35 @@ loginForm.addEventListener('submit', (e) => {
     if (storedData) { //si no está vacía
         const buscarUser = JSON.parse(storedData);
         const aux = buscarUser.some((buscar) => buscar.emailUser === email && buscar.passwordUser === password);
+        let datoUser = buscarUser.find((buscar) => buscar.emailUser === email && buscar.passwordUser === password);
+    
         if (aux) {
+            let userIniciado = { iniciada: true, nombre: datoUser.nameUser, correo: datoUser.emailUser };
+            console.log(userIniciado);
+            usuario = JSON.stringify(userIniciado)
+            localStorage.setItem('sesionIniciada', usuario);
             spinner.innerHTML = `
                 <div class="spinner-border text-light" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             `;
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Ingresando Sesión'
+            })
+
             setTimeout(() => {
                 spinner.innerHTML = '';
                 window.location.href = '../index.html';

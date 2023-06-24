@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!--SEO-->
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Explora nuestra amplia selección de plantas japonesas en Uruguay. Encuentra hermosos bonsáis, árboles de cerezo, ginkgos y más. Nuestras plantas son de alta calidad y cuidadosamente cultivadas para brindarte una experiencia auténtica. ¡Embellece tu jardín con la belleza y la serenidad de la naturaleza japonesa!">
+    <meta name="keywords"
+        content="plantas japonesas, tienda de plantas, naturaleza, belleza, armonía, serenidad, legado familiar, Uruguay">
+
+    <!--Links de Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kaushan+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+    <!--Links de bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <!--Links de estilos propios-->
+    <link href="../css/style.css" rel="stylesheet">
+
+    <!--titulo-->
+    <title>GINKGO - Carrito</title>
+</head>
+<body>
+    <header class="header-pag">
+        <!-- HEADER -->
+        <nav class="nav-pag">
+            <ul class="header__nav--links1 listaheader">
+                <li><a href="./productos.html">Productos</a></li>
+                <li><a href="./nosotros.html">Nosotros</a></li>
+                <li><a href="./tiendas.html">Tiendas</a></li>
+            </ul>
+            <a href="../index.html">
+                <p class="header__nav--logo">Ginkgo | 銀杏</p>
+            </a>
+            <ul class="listaheader">
+                <li class="links2"><img src="../img/header/perfil2.png" alt="perfil" id="header-img1"></li>
+                <li class="links2"><a href="./carrito.html"><img src="../img/header/carrito2.png" alt="carrito"
+                            id="header-img2"></a></li>
+                <li class="links2"><a href="./favoritos.html"><img src="../img/header/favorito2.png" alt="favorito"
+                            id="header-img3"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1 class="titulo-carrito">MI LISTA DE DESEOS</h1>
+        </div>
+        <!-- contenedor de productos -->
+        <div id="productos-container"></div>
+    </main>
+    <footer class="footer">
+        <!-- FOOTER -->
+        <section class="footer__redesSociales">
+            <a href="https://www.instagram.com/" target="_blank"><img src="../img/footer/ig.png" alt="link Instagram"></a>
+            <a href="https://es-la.facebook.com/" target="_blank"><img src="../img/footer/fb.png" alt="link Facebook"></a>
+            <a href="https://twitter.com/?lang=es" target="_blank"><img src="../img/footer/tw.png" alt="link Twitter"></a>
+            <a href="https://web.whatsapp.com/" target="_blank"><img src="../img/footer/wpp.png" alt="link Whatsapp"></a>
+        </section>
+
+        <section class="footer__logo">
+            <img src="../img/footer/logo.png" alt="logo de la tienda">
+        </section>
+
+        <form class="footer__suscribete" id="cuponFORM">
+            <p id="suscribete--title">¡Suscríbete a nuestras noticias!</p>
+            <p id="suscribete--subtitle">consigue un 5% de descuento en tu primera compra</p>
+            <div>
+                <input type="email" id="email-cupon" name="email" required placeholder="e-mail">
+                <button id="btn--suscribete" type="submit">SUSCRIBETE</button>
+            </div>
+        </form>
+    </footer>
+    <!--Links de JavaScript-->
+    <script src="../scripts/favoritos.js"></script>
+    <script src="../scripts/newslatter.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

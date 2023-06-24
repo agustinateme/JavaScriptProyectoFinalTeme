@@ -1,0 +1,82 @@
+[
+    {
+        "nombre": "Bonsai",
+        "id": 0,
+        "divisa": "UYU",
+        "precio": 2500,
+        "cant": 0,
+        "stock": 27,
+        "imgA": "../img/productos/1a.jpg",
+        "imgB": "../img/productos/1b.jpg"
+    },
+    {
+        "nombre": "Lirio japonés",
+        "id": 1,
+        "divisa": "UYU",
+        "precio": 859,
+        "cant": 0,
+        "stock": 35,
+        "imgA": "../img/productos/2a.jpg",
+        "imgB": "../img/productos/2b.jpg"
+    },
+    {
+        "nombre": "Azalea",
+        "id": 2,
+        "divisa": "UYU",
+        "precio": 429,
+        "cant": 0,
+        "stock": 15,
+        "imgA": "../img/productos/3a.jpg",
+        "imgB": "../img/productos/3b.jpg"
+    },
+    {
+        "nombre": "Sakura",
+        "id": 3,
+        "divisa": "UYU",
+        "precio": 1590,
+        "cant": 0,
+        "stock": 10,
+        "imgA": "../img/productos/4a.jpg",
+        "imgB": "../img/productos/4b.jpg"
+    },
+    {
+        "nombre": "Ginkgo",
+        "id": 4,
+        "divisa": "UYU",
+        "precio": 2399,
+        "cant": 0,
+        "stock": 20,
+        "imgA": "../img/productos/5a.jpg",
+        "imgB": "../img/productos/5b.jpg"
+    },
+    {
+        "nombre": "Fujibakama",
+        "id": 5,
+        "divisa": "UYU",
+        "precio": 599,
+        "cant": 0,
+        "stock": 12,
+        "imgA": "../img/productos/6a.jpg",
+        "imgB": "../img/productos/6b.jpg"
+    },
+    {
+        "nombre": "Kiku",
+        "id": 6,
+        "divisa": "UYU",
+        "precio": 3499,
+        "cant": 0,
+        "stock": 4,
+        "imgA": "../img/productos/7a.jpg",
+        "imgB": "../img/productos/7b.jpg"
+    },
+    {
+        "nombre": "Nadeshiko",
+        "id": 7,
+        "divisa": "UYU",
+        "precio": 1990,
+        "cant": 0,
+        "stock": 3,
+        "imgA": "../img/productos/8a.jpg",
+        "imgB": "../img/productos/8b.jpg"
+    }
+]

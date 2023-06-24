@@ -11,10 +11,7 @@
     <!--Links de Google Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kaushan+Script&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
     <!--Links de bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -39,7 +36,7 @@
                 <p class="header__nav--logo">Ginkgo | 銀杏</p>
             </a>
             <ul class="listaheader">
-                <li class="links2"><a href="./login.html"><img src="../img/header/perfil2.png" alt="perfil" id="header-img1"></a></li>
+                <li class="links2"><img src="../img/header/perfil2.png" alt="perfil" id="header-img1"></li>
                 <li class="links2"><a href="./carrito.html"><img src="../img/header/carrito2.png" alt="carrito" id="header-img2"></a></li>
                 <li class="links2"><a href="./favoritos.html"><img src="../img/header/favorito2.png" alt="favorito" id="header-img3"></a></li>
             </ul>
@@ -134,14 +131,17 @@
                 <input type="text" id="searchInput" placeholder="Buscar productos...">
                 <button>BUSCAR</button>
             </form>
-            <button class="filter-button" id="menorA">MENOR PRECIO</button>
-            <button class="filter-button" id="mayorA">MAYOR PRECIO</button>
-            <form >
-                <input type="text" id="pInf">
-                <input type="text" id="pSup">
-                <button class="filter-button" id="entrePrecios">ENTRE 2 PRECIOS</button>
+            <form>
+                <p>PRECIO:</p>
+                <input type="text" id="pInf" placeholder="Mínimo">
+                <span>&#60;</span>
+                <input type="text" id="pSup" placeholder="Máximo">
+                <button class="filter-button" id="entrePrecios">&#10148;</button>
             </form>
-            
+            <div>
+                <button class="filter-button" id="menorA">&#129147;</button>
+                <button class="filter-button" id="mayorA">&#129145;</button>
+            </div>  
         </div>
 
         <!-- contenedor de productos -->
@@ -161,16 +161,18 @@
             <img src="../img/footer/logo.png" alt="logo de la tienda">
         </section>
     
-        <form class="footer__suscribete">
+        <form class="footer__suscribete" id="cuponFORM">
             <p id="suscribete--title">¡Suscríbete a nuestras noticias!</p>
             <p id="suscribete--subtitle">consigue un 5% de descuento en tu primera compra</p>
             <div>
-                <input type="email" id="email" name="email" required placeholder="e-mail">
+                <input type="email" id="email-cupon" name="email" required placeholder="e-mail">
                 <button id="btn--suscribete" type="submit">SUSCRIBETE</button>
             </div>
         </form>
     </footer>
     <!--Links de JavaScript-->
     <script src="../scripts/script.js"></script>
+    <script src="../scripts/newslatter.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

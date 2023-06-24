@@ -1,8 +1,19 @@
+let sesionUser = localStorage.getItem('sesionIniciada')
+
+if (!sesionUser) {
+    const arreglo = [];
+    sesionUser = JSON.stringify(arreglo);
+    localStorage.setItem('sesionIniciada', sesionUser);
+}
+
+let userLog = JSON.parse(sesionUser);
+
 //TENGO QUE IMPORTARME EL CARRITO
-const CarritoData = localStorage.getItem('CARRITO:'); //obtengo la "base de datos" del localstorage
+let CarritoData = localStorage.getItem('CARRITO:'); //obtengo la "base de datos" del localstorage
 let carrito = JSON.parse(CarritoData);
-console.log(carrito);
 let CAR = document.getElementById('ContCarrito');
+
+let valorTotal = carrito.reduce((acum, prod) => acum + parseFloat(prod.precio * prod.cant), 0).toFixed(2);
 
 let totalDesc = 0;
 let fechaActual = new Date();
@@ -20,6 +31,18 @@ const divisa = [
     { codigo: 'BRL', valor: 7.76},
     { codigo: 'UYU', valor: 1},
 ];
+
+//ENVIOS
+const envioFree = document.getElementById('envio-free');
+const envioExpress = document.getElementById('envio-express');
+
+if (envioFree.checked) {
+    let envio = document.getElementById('envio');
+    envio.innerHTML = 'Gratuito'
+    envio.style.color = '#1d8f6d';
+}
+
+
 
 //Función que retorna un arreglo con el precio modificado según la divisa
 function conversor(arreglo, divisa) {
@@ -56,12 +79,42 @@ function fechaEntrega(espera) {
     return `${nombreDia} ${dia}, de ${nombremes}`;
 }
 
-function mostrarCarrito(carrito) {
-    carrito.forEach(producto => {
-        let subtotal = document.getElementById('subTotal');
-        let valorSubTotal = carrito.reduce((acum, prod) => acum + parseFloat(prod.precio * prod.cant), 0).toFixed(2);
-        subtotal.innerHTML = `${producto.divisa} ${valorSubTotal}`
+function valorDesc(valor) {
+    valor = valor - ((valor * totalDesc) / 100);
+    return valor;
+}
 
+let envioactual = 0; 
+
+function cambiarPrecios(precioEnvio) {
+    let Ptotal = document.getElementById('total1');
+    let v0 = parseFloat(valorTotal) + precioEnvio;
+    let v1 = valorDesc(v0).toFixed(2);
+    v1 = parseFloat((v1 / divisaPred.valor).toFixed(2));
+    Ptotal.innerHTML = `${divisaPred.codigo} ${v1}`;
+    envioActualizado(precioEnvio)
+
+    let stotal = document.getElementById('subTotal');
+    let vs0 = parseFloat(valorTotal);
+    let vs1 = ((vs0 / divisaPred.valor).toFixed(2));
+    stotal.innerHTML = `${divisaPred.codigo} ${vs1}`
+}
+
+function reiniciarPrecios() {
+    let Ptotal = document.getElementById('total1');
+    Ptotal.innerHTML = ``;
+    let stotal = document.getElementById('subTotal');
+    stotal.innerHTML = ``;
+    let cont = document.getElementById('car__pedido-resumen__descuentos');
+    borrarElementosHijos(cont);
+}
+
+
+function mostrarCarrito(carrito, divisa) {
+    carrito.forEach(producto => {
+        let cod = divisa.codigo;
+        let div = divisa.valor;
+        let price = parseFloat(producto.precio / div).toFixed(2);
         const contCar = document.createElement("div");
         contCar.id = 'car__productos-elementos';
 
@@ -82,7 +135,7 @@ function mostrarCarrito(carrito) {
         let carPre = document.createElement("div");
         carPre.id = 'car-precio'
         carPre.innerHTML = `
-       <p>${producto.divisa} ${producto.precio}</p>
+       <p>${cod} ${price}</p>
     `;
         contCar.appendChild(carPre);
 
@@ -99,41 +152,14 @@ function mostrarCarrito(carrito) {
         let carT = document.createElement("div");
         carT.id = 'total';
         let precioTotal = parseFloat(producto.precio * producto.cant).toFixed(2);
+        let precioFinal = (precioTotal / div).toFixed(2);
         carT.innerHTML = `
-        <p>${producto.divisa} ${precioTotal}</p>
+        <p>${cod} ${precioFinal}</p>
     `;
         contCar.appendChild(carT);
         CAR.appendChild(contCar)
     });
 }
-
-const contEnvio = document.getElementById('car__envioYpago');
-let tituloenvio = document.createElement("h2");
-tituloenvio.innerHTML = `
-    Seleccione tipo de envío
-`;
-contEnvio.appendChild(tituloenvio);
-let divenvio = document.createElement("div")
-divenvio.classList.add('envio');
-divenvio.innerHTML = `
-    <input type="radio" name="envio" id="envio-free" class="envio--radio" checked>
-    <p class="envio--titulo">Envío gratuito</p>
-    <div class="envio--inline">
-        <p class="envio--subtitulo" id="entregaFree"></p>
-    </div>
-`;
-contEnvio.appendChild(divenvio);
-
-let divenvio2 = document.createElement("div")
-divenvio2.classList.add('envio');
-divenvio2.innerHTML = `
-    <input type="radio" name="envio" id="envio-express" class="envio--radio">
-    <p class="envio--titulo">Envío rápido</p>
-    <div class="envio--inline">
-        <p class="envio--subtitulo" id="entregaExpress"></p>
-    </div>
-`;
-contEnvio.appendChild(divenvio2);
 
 //Descuentos del carrito
 const formCupones = document.getElementById('form-cupones');
@@ -169,16 +195,7 @@ formCupones.addEventListener('submit', (e) => {
 
             arregloDescuento[ind].usado = true;
 
-            const descuentosUsados = arregloDescuento.filter(descuento => descuento.usado);
-            // Obtener la suma de los descuentos
-            const sumaDescuentos = descuentosUsados.reduce((acumulador, descuento) => acumulador + descuento.desc, 0);
-            let totalP = document.getElementById('total');
-
-
-            let valorSubTotal = carrito.reduce((acum, prod) => acum + parseFloat(prod.precio * prod.cant), 0).toFixed(2);
-            const precioConDescuento = valorSubTotal * (1 - sumaDescuentos / 100);
-            console.log(precioConDescuento)
-            totalP.innerHTML = `${precioConDescuento}`
+            cambiarPrecios(envioactual)
         }
     }
 })
@@ -206,37 +223,49 @@ if (diaActual == 5) { //BLACK FRIDAY
     ctrPrincipal.appendChild(section);
 }
 
-//ENVIOS
-const envioFree = document.getElementById('envio-free');
-const envioExpress = document.getElementById('envio-express');
-
-if (envioFree.checked) {
+function envioActualizado(coso) {
     let envio = document.getElementById('envio');
-    envio.innerHTML = 'Gratuito'
-    envio.style.color = '#1d8f6d';
+    if (coso === 350) {
+        envio.innerHTML = `${divisaPred.codigo} ${parseFloat((coso / divisaPred.valor).toFixed(2))}`;
+    }
+    else if(coso === 0) {
+        envio.innerHTML = 'Gratuito'
+        envio.style.color = '#1d8f6d';
+    }
 }
 
-envioFree.addEventListener('click', (e) => {
-    let envio = document.getElementById('envio');
-    envio.innerHTML = 'Gratuito'
-    envio.style.color = '#1d8f6d';
-})
-
 envioExpress.addEventListener('click', (e) => {
-    let envio = document.getElementById('envio');
-    envio.innerHTML = 'UYU 350'
+    borrarElementosHijos(diaEntregaFree);
+    let coso = 350;
+    envioActualizado(coso)
     envio.style.color = 'black';
+    diaEntregaExpress = document.getElementById('entregaExpress');
+    diaEntregaExpress.innerHTML = `
+    UYU 350, tu pedido será entregado: ${fechaEntrega(3)}
+    `;
+    let precioEnvioExpress = 350;
+    envioactual = 350;
+    cambiarPrecios(precioEnvioExpress);
 })
 
+envioFree.addEventListener('click', (e) => {
+    borrarElementosHijos(diaEntregaExpress);
+    let coso = 0;
+    envioActualizado(coso)
+    diaEntregaFree = document.getElementById('entregaFree');
+    diaEntregaFree.innerHTML = `
+    Sin costo, tu pedido será entregado: ${fechaEntrega(8)}
+    `;
+    let precioEnvioFree = 0;
+    envioactual = 0;
+    cambiarPrecios(precioEnvioFree);
+})
+
+//el gratuito está seleccionado por defecto
 diaEntregaFree = document.getElementById('entregaFree');
 diaEntregaFree.innerHTML = `
     Sin costo, tu pedido será entregado: ${fechaEntrega(8)}
 `;
-diaEntregaExpress = document.getElementById('entregaExpress');
-diaEntregaExpress.innerHTML = `
-    UYU 350, tu pedido será entregado: ${fechaEntrega(3)}
-`;
-
 
 function obtenerPosicionDivisaSeleccionada() {
     const divisaSeleccionada = document.querySelector('input[name="divisaElegida"]:checked');
@@ -252,12 +281,15 @@ function borrarElementosHijos(elementoPadre) {
     }
 }
 
+
 let selecc = document.getElementsByClassName('choose-divisa');
 for (let i = 0; i < selecc.length; i++) {
     selecc[i].addEventListener('click', () => {
         let pos = obtenerPosicionDivisaSeleccionada();
         let div = divisa[pos];
         let carritoDos = conversor(carrito, div);
+
+        divisaPred = div;
 
         // Obtener el elemento padre donde se muestran los elementos del carrito
         let carritoElementoPadre = document.getElementById('ContCarrito');
@@ -266,8 +298,74 @@ for (let i = 0; i < selecc.length; i++) {
         borrarElementosHijos(carritoElementoPadre);
 
         // Mostrar el carrito actualizado
-        mostrarCarrito(carritoDos);
+        mostrarCarrito(carrito, div);
+        cambiarPrecios(envioactual)
     });
 }
+
+let buy = document.getElementById('buy');
+buy.addEventListener('click', () => {
+    if ((userLog.iniciada) && (carrito.length > 0)) {
+        setTimeout(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Compra realizada con exito',
+                text: '¡Gracias por su compra!',
+            })
+            borrarElementosHijos(CAR);
+            valorTotal = 0;
+            cambiarPrecios(0);
+            reiniciarPrecios();
+        }, 3000);
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: 'success',
+            title: 'Procesando compra'
+        })        
+        carrito.splice(0, carrito.length);
+        CarritoData = JSON.stringify(carrito);
+        localStorage.setItem('CARRITO:', CarritoData);
+    }
+    else if (!userLog.iniciada) {
+        Swal.fire({
+            title: '¿Quieres iniciar sesión?',
+            text: "Debes iniciar sesión para comprar",
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#23b98c',
+            cancelButtonColor: '#FE654F',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'iniciar sesión'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    iniciada = false,
+                    sesion = JSON.stringify(iniciada),
+                    localStorage.setItem('sesionIniciada', sesion),
+                    window.location.href = '../pages/login.html',
+                )
+            }
+        })
+    }
+    else if (carrito.length <= 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Carrito vacío',
+            text: 'Agrega productos al carrito para poder comprar'
+        })
+    }
+});
+
 let divisaPred = divisa[3];
+cambiarPrecios(envioactual)
 mostrarCarrito(carrito, divisaPred);

@@ -1,52 +1,124 @@
-let baseDeDatosPROD = localStorage.getItem('CARRITO:'); // Obtener los datos almacenados en el localStorage
+let baseDeDatosCar = localStorage.getItem('CARRITO:'); //Obtener los datos del carrito del localStorage
+let baseDeDatosFav = localStorage.getItem('FAVORITOS:'); //Obtener los datos de favoritos del localStorage
 
-if (!baseDeDatosPROD) {
-    // Si no existe una base de datos, creo una nueva
-    const arreglo = [];
-    baseDeDatosPROD = JSON.stringify(arreglo);
-    localStorage.setItem('CARRITO:', baseDeDatosPROD);
+let carrito = baseDeDatosCar ? JSON.parse(baseDeDatosCar) : [];
+let favoritos = baseDeDatosFav ? JSON.parse(baseDeDatosFav) : [];
+
+//Función asincrona
+const productos = async () => {
+    const resp = await fetch('../data/productos.json');
+    const data = await resp.json();
+    const nuevo = agregarIVA(data);
+    mostrarProductos(nuevo, favoritos, carrito)
 }
 
-//Arreglos de productos sin IVA
-const productosSinIVA = [
-    { nombre: 'bonsai', id: 1, divisa: 'UYU', precio: 2500, cant: 0, stock: 27, imgA: '../img/productos/1a.jpg', imgB: '../img/productos/1b.jpg', fav: false },
-    { nombre: 'lirio japonés', id: 2, divisa: 'UYU', precio: 859, cant: 0, stock: 35, imgA: '../img/productos/2a.jpg', imgB: '../img/productos/2b.jpg', fav: false },
-    { nombre: 'azalea', id: 3, divisa: 'UYU', precio: 429, cant: 0, stock: 15, imgA: '../img/productos/3a.jpg', imgB: '../img/productos/3b.jpg', fav: false },
-    { nombre: 'sakura', id: 4, divisa: 'UYU', precio: 1590, cant: 0, stock: 10, imgA: '../img/productos/4a.jpg', imgB: '../img/productos/4b.jpg', fav: false },
-    { nombre: 'ginkgo', id: 5, divisa: 'UYU', precio: 2399, cant: 0, stock: 20, imgA: '../img/productos/5a.jpg', imgB: '../img/productos/5b.jpg', fav: false },
-    { nombre: 'fujibakama ', id: 6, divisa: 'UYU', precio: 599, cant: 0, stock: 12, imgA: '../img/productos/6a.jpg', imgB: '../img/productos/6b.jpg', fav: false },
-    { nombre: 'kiku', id: 7, divisa: 'UYU', precio: 3499, cant: 0, stock: 4, imgA: '../img/productos/7a.jpg', imgB: '../img/productos/7b.jpg', fav: false },
-    { nombre: 'nadeshiko', id: 8, divisa: 'UYU', precio: 1990, cant: 0, stock: 3, imgA: '../img/productos/8a.jpg', imgB: '../img/productos/8b.jpg', fav: false },
-];
+//Funcion que devuelve un arreglo con el IVA incluido en el precio
+function agregarIVA(arreglo) {
+    const IVA_FACTOR = 1.22;
+    const productosConIVA = arreglo.map((prod) => {
+        return {
+            nombre: prod.nombre,
+            id: prod.id,
+            divisa: prod.divisa,
+            precio: parseFloat((prod.precio * IVA_FACTOR).toFixed(2)),
+            cant: prod.cant,
+            stock: prod.stock,
+            imgA: prod.imgA,
+            imgB: prod.imgB,
+        };
+    });
+    return productosConIVA;
+}
 
-let carrito = [];
+//Procedimiento para actualizar el stock
+function actualizarStock(arreglo) {
+    const productosDOM = document.querySelectorAll('.productos__stock');
+    arreglo.forEach((producto, index) => {
+        const stock = producto.stock - producto.cant;
+        productosDOM[index].textContent = `Stock: ${stock}`;
+    });
+}
 
-//Arreglos de productos con IVA incluído
-const IVA_FACTOR = 1.22;
-const productosConIVA = productosSinIVA.map((prod) => {
-    return {
-        nombre: prod.nombre,
-        id: prod.id,
-        divisa: prod.divisa,
-        precio: parseFloat((prod.precio * IVA_FACTOR).toFixed(2)),
-        cant: prod.cant,
-        stock: prod.stock,
-        imgA: prod.imgA,
-        imgB: prod.imgB,
-        fav: prod.fav,
-    };
-});
+function actualizarCantidadesCarrito(arreglo, car) {
+    car.forEach((item) => {
+        let productoEncontrado = arreglo.find((prod) => prod.id == item.id);
+        if (productoEncontrado) {
+            productoEncontrado.cant = item.cant;
+        }
+    });
+}
 
+function agregarACarrito(arreglo, id, car) {
+    let ind = arreglo.findIndex((prod) => prod.id == id);
+    if (hayStock(arreglo, ind)) {
+        if (car.some((prod) => prod.id == id)) {
+            car[car.findIndex((prod) => prod.id == id)].cant++;
+        } else {
+            arreglo[ind].cant++;
+            car.push(arreglo[ind]);
+        }
 
+        baseDeDatosCar = JSON.stringify(car);
+        localStorage.setItem('CARRITO:', baseDeDatosCar);
+        actualizarCantidadesCarrito(arreglo, car);
+        actualizarStock(arreglo); // Actualizar el stock en el DOM
+    }
+}
 
-//función que retorna true si hay stock
+function eliminarDeCarrito(arreglo, id, car) {
+    if (hayStock(car, id)) {
+        let index = car.findIndex((prod) => prod.id == id);
+        if (car[index].cant > 1) {
+            car[index].cant--;
+        } else {
+            car.splice(index, 1);
+        }
+        arreglo[id].cant--;
+
+        baseDeDatosCar = JSON.stringify(car);
+        localStorage.setItem('CARRITO:', baseDeDatosCar);
+        actualizarCantidadesCarrito(arreglo, car);
+        actualizarStock(arreglo); // Actualizar el stock en el DOM
+    }
+}
+
+//Procedimiento para agregar un producto a favoritos
+function agregarAFavoritos(arreglo, id, fav) {
+    let agregar = arreglo.map((prod) => {
+        return {
+            nombre: prod.nombre,
+            id: prod.id,
+            divisa: prod.divisa,
+            precio: prod.precio,
+            imgA: prod.imgA,
+            imgB: prod.imgB,
+        }
+    })
+    let ind = agregar.findIndex((prod) => prod.id == id);
+    fav.push(agregar[ind]);
+    baseDeDatosFav = JSON.stringify(fav);
+    localStorage.setItem('FAVORITOS:', baseDeDatosFav);
+}
+
+//Procedimiento para eliminar un producto de favoritos
+function eliminarFavorito(id, fav) {
+    let ind = fav.findIndex((prod) => prod.id == id);
+    fav.splice(ind, 1);
+    baseDeDatosFav = JSON.stringify(fav);
+    localStorage.setItem('FAVORITOS:', baseDeDatosFav);
+}
+
+//Funcion que verifica si un producto está en favoritos
+function existeFav(id, fav) {
+    return fav.some((prod) => prod.id === id);
+}
+
+//Función que retorna true si hay stock de un producto, false en caso contrario
 function hayStock(arreglo, id) {
-    id = id - 1;
     return arreglo[id].cant < arreglo[id].stock;
 }
 
 //Función que retorna un arreglo filtrado de menor a mayor
-//recibe el arreglo que quiero filtrar
 function menorAMayor(arreglo) {
     const pOrdMenor = arreglo.map((prod) => prod);
     pOrdMenor.sort((a, b) => {
@@ -62,7 +134,6 @@ function menorAMayor(arreglo) {
 }
 
 //Función que retorna un arreglo filtrado de mayor a menor
-//recibe el arreglo que quiero filtrar
 function mayorAMenor(arreglo) {
     const pOrdMayor = arreglo.map((prod) => prod);
     pOrdMayor.sort((a, b) => {
@@ -89,94 +160,48 @@ function entrePrecios(arreglo, pMenor, pMayor) {
 //Función que recibe un arreglo y devuelve otro filtrado por nombre (buscador)
 function buscador(arreglo, search) {
     const aFiltrado = arreglo.filter((prod) =>
-        prod.nombre.includes(search.toLowerCase())
+        prod.nombre.toLowerCase().includes(search.toLowerCase())
     );
     return aFiltrado;
 }
 
-//Procemiento para agregar un producto al carrito recibe un arreglo y un identificador del producto a agregar
-//se ejecuta solo si hay stock del elemento a agregar
-function agregar(arreglo, id) {
-    id = id - 1;
-    if (carrito.some((prod) => prod.id == id + 1)) {
-        const index = carrito.findIndex((prod) => prod.id == id + 1);
-        carrito[index].cant++;
-    } else {
-        carrito.push({ ...arreglo[id], cant: 1 });
-    }
-    productosConIVA[id].cant++;
-}
-
-//Procedimiento que elimina un elemento del carrito
-function eliminar(id) {
-    id = id - 1;
-    const index = carrito.findIndex((prod) => prod.id === id + 1);
-    if (index !== -1) {
-        if (carrito[index].cant > 1) {
-            carrito[index].cant--;
-        } else {
-            carrito.splice(index, 1);
-        }
-    }
-    productosConIVA[id].cant--;
-}
-
-
-
-//funcion que muestra los productos en la página productos
-function mostrarProductos(arreglo) {
-    //accedo al id del contenedor principal
-    let contenedorProductos = document.getElementById('productos-container');
-    arreglo.forEach(producto => {
-
-        //creo un contenedor div para cada producto
-        let cartaProducto = document.createElement('div');
-
-        //agrego la clase a cada contenedor
-        cartaProducto.classList.add('producto-card');
-
-        //creo el contenido que tendra cada contenedor de producto
-        cartaProducto.innerHTML = `
-            <img class="productos__img" src="${producto.imgA}" data-hover="${producto.imgB}">
-            <h2 class = 'productos__titulo'>${producto.nombre}</h2>
-            <p class = 'productos__precio'>${producto.divisa} ${producto.precio}</p>
-            <p class="productos__stock">Stock: ${producto.stock - producto.cant}</p>
-            <button class = 'productos__btn'>COMPRAR</button>
-        `;
-
-        //agrego los contenedores de los productos al contenedor principal
-        contenedorProductos.appendChild(cartaProducto);
-
-        //cada vez que se clickea un botón de compra se agrega el producto al carrito
-        let botonComprar = cartaProducto.querySelector('.productos__btn');
-        botonComprar.addEventListener('click', () => {
-            //Con el evento click agrego el producto al carrito si tengo stock disponible, si no lo hay no hago nada
-            if (hayStock(productosConIVA, producto.id)) {
-                agregar(productosConIVA, producto.id);
-                const stockElement = cartaProducto.querySelector('.productos__stock');
-                stockElement.textContent = `Stock: ${producto.stock - producto.cant}`;
-
-                baseDeDatosPROD = JSON.stringify(carrito);
-                localStorage.setItem('CARRITO:', baseDeDatosPROD);
-            }
-        });
-
-        // eventos de mouse para cada imagen de producto
-        let img = cartaProducto.querySelector('.productos__img');
-        let originalSrc = img.src;
-        let hoverSrc = img.getAttribute('data-hover');
-
-        img.addEventListener('mouseover', function () {
-            img.src = hoverSrc;
-        });
-
-        img.addEventListener('mouseout', function () {
-            img.src = originalSrc;
-        });
+function botonCompra(cartaProducto, arreglo, id, car) {
+    //cada vez que se clickea un botón de compra se agrega el producto al carrito
+    let botonComprar = cartaProducto.querySelector('.productos__btn');
+    botonComprar.addEventListener('click', () => {
+        //Con el evento click agrego el producto al carrito si tengo stock disponible, si no lo hay no hago nada
+        agregarACarrito(arreglo, id, car);
     });
 }
 
-// función para limpiar los productos mostrados en la página
+function actualizarFAV(cartaProducto, arreglo, id, fav) {
+    // eventos de cambio para cada checkbox de favoritos
+    let checkboxFav = cartaProducto.querySelector('.prod-fav');
+    checkboxFav.addEventListener('change', () => {
+        if (checkboxFav.checked) {
+            agregarAFavoritos(arreglo, id, fav);
+        } else {
+            eliminarFavorito(id, fav);
+        }
+    });
+}
+
+function cambiarImagen(cartaProducto) {
+    // eventos de mouse para cada imagen de producto
+    let img = cartaProducto.querySelector('.productos__img');
+    let originalSrc = img.src;
+    let hoverSrc = img.getAttribute('data-hover');
+
+    img.addEventListener('mouseover', () => {
+        img.src = hoverSrc;
+    });
+
+    img.addEventListener('mouseout', () => {
+        img.src = originalSrc;
+    });
+}
+
+//Función para limpiar los productos mostrados en la página
 function limpiarProductos() {
     let contenedorProductos = document.getElementById('productos-container');
     while (contenedorProductos.firstChild) {
@@ -184,68 +209,94 @@ function limpiarProductos() {
     }
 }
 
-mostrarProductos(productosConIVA)
+function filtradoBusqueda(arreglo, car) {
+    let formBusqueda = document.getElementById('search-form');
+    formBusqueda.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let buscarnombre = document.getElementById('searchInput').value;
+        let encontrado = buscador(arreglo, buscarnombre);
 
-
-
-let formBusqueda = document.getElementById('search-form');
-formBusqueda.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let buscarnombre = document.getElementById('searchInput').value;
-    let encontrado = buscador(productosConIVA, buscarnombre);
-
-    //limpiar productos antes de mostrar los nuevos resultados
-    limpiarProductos();
-    mostrarProductos(encontrado);
-});
-
-let ordenMenor = document.getElementById('menorA');
-ordenMenor.addEventListener('click', (e) => {
-    let encontrado = menorAMayor(productosConIVA);
-    limpiarProductos();
-    mostrarProductos(encontrado);
-});
-
-let ordenMayor = document.getElementById('mayorA');
-ordenMayor.addEventListener('click', (e) => {
-    let encontrado = mayorAMenor(productosConIVA);
-    limpiarProductos();
-    mostrarProductos(encontrado);
-});
-
-
-let entre2precios = document.getElementById('entrePrecios');
-entre2precios.addEventListener('click', (e) => {
-    e.preventDefault();
-    let precioInferior = document.getElementById('pInf').value;
-    let precioSuperior = document.getElementById('pSup').value;
-
-    let encontrado = entrePrecios(productosConIVA, precioInferior, precioSuperior);
-
-    //limpiar productos antes de mostrar los nuevos resultados
-    limpiarProductos();
-    mostrarProductos(encontrado);
-});
-
-
-
-
-
-
-
-
-
-
-
-/*
-var fechaActual = new Date();
-console.log(fechaActual);
-// Obtener el número del día actual (0: domingo, 1: lunes, ..., 6: sábado)
-var diaActual = fechaActual.getDay();
-
-if (diaActual === 5) {
-    //5 equivale al día viernes
-    //si es viernes aplico descuento de black friday (luego debo expecificar los descuentos aplicados)
+        //limpiar productos antes de mostrar los nuevos resultados
+        limpiarProductos();
+        mostrarProductos(encontrado, favoritos, car);
+    });
 }
-*/
 
+function filtradoOrdMenor(arreglo, favoritos, car) {
+    let ordenMenor = document.getElementById('menorA');
+    ordenMenor.addEventListener('click', (e) => {
+        let encontrado = menorAMayor(arreglo);
+
+        //limpiar productos antes de mostrar los nuevos resultados
+        limpiarProductos();
+        mostrarProductos(encontrado, favoritos, car);
+    });
+}
+
+function filtradoOrdMayor(arreglo, favoritos, car) {
+    let ordenMayor = document.getElementById('mayorA');
+    ordenMayor.addEventListener('click', (e) => {
+        let encontrado = mayorAMenor(arreglo);
+
+        //limpiar productos antes de mostrar los nuevos resultados
+        limpiarProductos();
+        mostrarProductos(encontrado, favoritos, car);
+    });
+}
+
+function filtradoPrecios(arreglo, favoritos, car) {
+    let entre2precios = document.getElementById('entrePrecios');
+    entre2precios.addEventListener('click', (e) => {
+        e.preventDefault();
+        let precioInferior = document.getElementById('pInf').value;
+        let precioSuperior = document.getElementById('pSup').value;
+        let encontrado = entrePrecios(arreglo, precioInferior, precioSuperior);
+
+        //limpiar productos antes de mostrar los nuevos resultados
+        limpiarProductos();
+        mostrarProductos(encontrado, favoritos, car);
+    });
+}
+
+//Funcion que muestra los productos en la página productos
+function mostrarProductos(arreglo, favoritos, car) {
+    //accedo al id del contenedor principal
+    let contenedorProductos = document.getElementById('productos-container');
+    arreglo.forEach(producto => {
+
+        //creo un contenedor div para cada producto
+        let cartaProducto = document.createElement('div');
+        //agrego la clase a cada contenedor
+        cartaProducto.classList.add('producto-card');
+
+        // Actualizar las cantidades del carrito en el arreglo filtrado
+        actualizarCantidadesCarrito(arreglo, car)
+
+        //creo el contenido que tendra cada contenedor de producto
+        cartaProducto.innerHTML = `
+            <img class="productos__img" src="${producto.imgA}" data-hover="${producto.imgB}">
+            <div class="prod-t-s">
+                <h2 class = "productos__titulo">${producto.nombre}</h2>
+                <label for="fav-${producto.id}" class = "productos__fav">
+                    <input type="checkbox" id="fav-${producto.id}" class="prod-fav" value="favorito" ${existeFav(producto.id, favoritos) ? 'checked' : ''}>
+                    <span class="heart">&#x2764;</span>
+                </label>
+            </div>
+            <p class = "productos__precio">${producto.divisa} ${producto.precio}</p>
+            <p class="productos__stock">Stock: ${producto.stock - producto.cant}</p>
+            <button class = 'productos__btn'>COMPRAR</button>
+        `;
+
+        //agrego los contenedores de los productos al contenedor principal
+        contenedorProductos.appendChild(cartaProducto);
+        botonCompra(cartaProducto, arreglo, producto.id, car);
+        filtradoBusqueda(arreglo, car);
+        filtradoOrdMayor(arreglo, favoritos, car);
+        filtradoOrdMenor(arreglo, favoritos, car);
+        filtradoPrecios(arreglo, favoritos, car);
+        actualizarFAV(cartaProducto, arreglo, producto.id, favoritos);
+        cambiarImagen(cartaProducto);
+    });
+}
+
+productos()
