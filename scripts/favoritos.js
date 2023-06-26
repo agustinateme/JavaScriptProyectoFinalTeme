@@ -114,6 +114,8 @@ function actualizarFAV(cartaProducto, id, fav) {
                     'success'
                 )
             }
+            limpiarProductos()
+            mostrarProductos(favoritos, favoritos);
         });
     });
 }
