@@ -255,7 +255,7 @@ function filtradoPrecios(arreglo, favoritos, car) {
         let precioInferior = document.getElementById('pInf').value;
         let precioSuperior = document.getElementById('pSup').value;
 
-        if (precioInferior > precioSuperior) {
+        if (parseFloat(precioInferior) > parseFloat(precioSuperior)) {
             Swal.fire({
                 icon: 'error',
                 text: 'Ingrese valores válidos'
