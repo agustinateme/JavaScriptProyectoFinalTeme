@@ -762,6 +762,12 @@ main {
         content: url("../img/fav/heartFavSelec.png");
         color: rgb(190, 1, 1);
     }
+    .divisa:checked+.tarjeta:hover {
+        content: url("../img/creditcardSelecHover.png");
+    }
+    .tarjeta:hover {
+        content: url("../img/creditcardHover.png");
+    }
 }
 
 #productos-container {
@@ -1177,31 +1183,29 @@ main {
 }
 
 .tarjeta {
-    color: #d6d6d6;
-    font-size: 1.1rem;
+    width: 3rem;
     cursor: pointer;
-}
-
-.tarjeta:hover {
-    color: #67ccae;
+    content: url("../img/creditcard.png");
 }
 
 .divisa:checked+.tarjeta {
-    color: #23b98c;
-}
-
-.divisa:checked+.tarjeta:hover {
-    color: #1d8f6d;
+    content: url("../img/creditcardSelec.png");
 }
 
 .choose-divisa {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
 }
-
-.choose-divisa label {
-    margin: 0.8rem;
+.choose-title, .choose-targ {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+.choose-title {
+    color: black;
+    font-size: 1.1rem;
 }
 
 .prod-t-sFAV {
