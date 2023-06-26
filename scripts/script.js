@@ -279,7 +279,7 @@ function mostrarProductos(arreglo, favoritos, car) {
                 <h2 class = "productos__titulo">${producto.nombre}</h2>
                 <label for="fav-${producto.id}" class = "productos__fav">
                     <input type="checkbox" id="fav-${producto.id}" class="prod-fav" value="favorito" ${existeFav(producto.id, favoritos) ? 'checked' : ''}>
-                    <span class="heart">&#x2764;</span>
+                    <span class="heart"></span>
                 </label>
             </div>
             <p class = "productos__precio">${producto.divisa} ${producto.precio}</p>

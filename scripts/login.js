@@ -1,3 +1,12 @@
+let baseDeDatos = localStorage.getItem('USUARIOS:'); // Obtener los datos almacenados en el localStorage
+
+if (!baseDeDatos) {
+    // Si no existe una base de datos, creo una nueva
+    const arreglo = [];
+    baseDeDatos = JSON.stringify(arreglo);
+    localStorage.setItem('USUARIOS:', baseDeDatos);
+}
+
 let usuario = localStorage.getItem('sesionIniciada');
 
 //Si la sesión no está iniciada

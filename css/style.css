@@ -774,8 +774,8 @@ main {
 }
 
 .heart {
-    color: #d6d6d6;
-    font-size: 1.5rem;
+    content: url("../img/fav/heart.png");
+    width: 1.5rem;
     cursor: pointer;
     margin-left: 0.5rem;
 }
@@ -790,6 +790,7 @@ main {
 }
 
 .heart:hover {
+    content: url("../img/fav/heartSelec.png");
     color: rgb(255, 86, 86);
 }
 
@@ -798,10 +799,12 @@ main {
 }
 
 .prod-fav:checked+.heart {
+    content: url("../img/fav/heartFav.png");
     color: red;
 }
 
 .prod-fav:checked+.heart:hover {
+    content: url("../img/fav/heartFavSelec.png");
     color: rgb(190, 1, 1);
 }
 
