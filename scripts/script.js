@@ -254,20 +254,10 @@ function filtradoPrecios(arreglo, favoritos, car) {
         e.preventDefault();
         let precioInferior = document.getElementById('pInf').value;
         let precioSuperior = document.getElementById('pSup').value;
-
-        if (parseFloat(precioInferior) > parseFloat(precioSuperior)) {
-            Swal.fire({
-                icon: 'error',
-                text: 'Ingrese valores válidos'
-            })
-        }
-        else {
-            let encontrado = entrePrecios(arreglo, precioInferior, precioSuperior);
-
-            //limpiar productos antes de mostrar los nuevos resultados
-            limpiarProductos();
-            mostrarProductos(encontrado, favoritos, car);
-        }        
+        let encontrado = entrePrecios(arreglo, precioInferior, precioSuperior);
+        //limpiar productos antes de mostrar los nuevos resultados
+        limpiarProductos();
+        mostrarProductos(encontrado, favoritos, car);      
     });
 }
 
