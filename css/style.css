@@ -375,7 +375,32 @@ main {
     #car-precio, #total, #car-cant, .fav-carr p {
         font-size: 0.875rem;
     }
-    
+
+    .heart {
+        content: url("../img/fav/heart.png");
+        width: 1.5rem;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotateY(0deg);
+        }
+        100% {
+            transform: rotateY(360deg);
+        }
+    }
+
+    .prod-fav:checked+.heart {
+        animation: rotate 3s;
+    }
+
+    .prod-fav:checked+.heart {
+        content: url("../img/fav/heartFav.png");
+        color: red;
+    }
+
 }
 
 /*RESPONSIVE DESKTOP*/
@@ -738,6 +763,41 @@ main {
     #car__productos-elementos div {
         margin:1rem 0;
     }
+
+    .heart {
+        content: url("../img/fav/heart.png");
+        width: 1.5rem;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotateY(0deg);
+        }
+        100% {
+            transform: rotateY(360deg);
+        }
+    }
+
+    .heart:hover {
+        content: url("../img/fav/heartSelec.png");
+        color: rgb(255, 86, 86);
+    }
+
+    .prod-fav:checked+.heart {
+        animation: rotate 3s;
+    }
+
+    .prod-fav:checked+.heart {
+        content: url("../img/fav/heartFav.png");
+        color: red;
+    }
+
+    .prod-fav:checked+.heart:hover {
+        content: url("../img/fav/heartFavSelec.png");
+        color: rgb(190, 1, 1);
+    }
 }
 
 #productos-container {
@@ -771,41 +831,6 @@ main {
 .prod-fav {
     display: none;
     /* Oculta los checkboxes nativos */
-}
-
-.heart {
-    content: url("../img/fav/heart.png");
-    width: 1.5rem;
-    cursor: pointer;
-    margin-left: 0.5rem;
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotateY(0deg);
-    }
-    100% {
-        transform: rotateY(360deg);
-    }
-}
-
-.heart:hover {
-    content: url("../img/fav/heartSelec.png");
-    color: rgb(255, 86, 86);
-}
-
-.prod-fav:checked+.heart {
-    animation: rotate 3s;
-}
-
-.prod-fav:checked+.heart {
-    content: url("../img/fav/heartFav.png");
-    color: red;
-}
-
-.prod-fav:checked+.heart:hover {
-    content: url("../img/fav/heartFavSelec.png");
-    color: rgb(190, 1, 1);
 }
 
 .productos__precio {
@@ -1248,4 +1273,8 @@ main {
 }
 #car-nombreyfav {
     padding-left: 0.5rem;
+}
+
+#menorA img, #mayorA img {
+    width: 0.7rem;
 }
