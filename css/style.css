@@ -401,6 +401,15 @@ main {
         color: red;
     }
 
+    /*NOSOTROS*/
+    .nosotros__historia div{
+        display: grid;
+        grid-template-rows: auto auto;
+        justify-items: center;
+        align-items: center;
+    }
+
+    
 }
 
 /*RESPONSIVE DESKTOP*/
@@ -621,52 +630,11 @@ main {
     }
 
     /*NOSOTROS*/
-    #main__nosotros {
-        display: flex;
-        flex-direction: column;
-    }
     .nosotros__historia div{
         display: grid;
         grid-template-columns: 1fr 1fr;
         justify-items: center;
         align-items: center;
-    }
-
-    .nosotros__historia div img {
-        width: 70%;
-
-    }
-    .h2_nos, .myv {
-        font-family: 'Bebas Neue', cursive;
-        text-align: center;
-        font-size: 2rem;
-        font-weight: 400;
-        margin-top: 2rem;
-    }
-    .h2_nos {
-        color: #FE654F;
-    }
-    .myv {
-        color: white;
-    }
-
-    .nosotros__historia div {
-        background-image: url('../img/header/b1.jpg');
-        background-size: cover;
-        background-position: center;
-        font-size: 1rem;
-        color: white;
-        margin: 2rem;
-        padding: 2rem;
-        border-radius: 1rem;
-    }
-    .nosotros__historia div section{
-        background-color: #23b98c;
-        border-radius: 1rem;
-        padding: 1rem;
-    }
-    .nosotros__historia div section p {
-        margin: 1rem;
     }
 
     /*FILTROS*/
@@ -691,10 +659,6 @@ main {
     #boton{
         font-size: 1.5rem;
     }
-
-
-
-
 
     /*CARRITO*/
         .car {
@@ -1278,3 +1242,61 @@ main {
 #menorA img, #mayorA img {
     width: 0.7rem;
 }
+
+.ubi--tiendas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 1rem;
+}
+.ubi--tiendas div iframe {
+    margin: 2rem;
+}
+.ubi--tiendas div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.subNosotros {
+    font-size: 1rem;
+}
+
+ /*NOSOTROS*/
+ #main__nosotros {
+     display: flex;
+     flex-direction: column;
+ }
+
+ .nosotros__historia div img {
+     width: 70%;
+     border-radius: 2rem;
+     margin: 1rem;
+ }
+
+ .myv {
+     font-family: 'Bebas Neue', cursive;
+     text-align: center;
+     font-size: 2rem;
+     font-weight: 400;
+ }
+
+ .myv {
+     color: white;
+     margin: 0rem;
+ }
+
+ .nosotros__historia div {
+     background-color: #fe664faf;
+     font-size: 1rem;
+     color: white;
+     margin: 2rem;
+     padding: 2rem;
+     border-radius: 1rem;
+ }
+
+ .nosotros__historia div section {
+     background-color: #23b98c;
+     border-radius: 1rem;
+     padding: 1rem;
+ }

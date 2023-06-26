@@ -19,6 +19,49 @@ let carrito = JSON.parse(carritoData);
 
 let CAR = document.getElementById('ContCarrito');
 
+
+//Procedimiento para agregar un producto a favoritos
+function agregarAFavoritos(arreglo, id, fav) {
+    let agregar = arreglo.map((prod) => {
+        return {
+            nombre: prod.nombre,
+            id: prod.id,
+            divisa: prod.divisa,
+            precio: prod.precio,
+            imgA: prod.imgA,
+            imgB: prod.imgB,
+        }
+    })
+    let ind = agregar.findIndex((prod) => prod.id == id);
+    fav.push(agregar[ind]);
+    baseDeDatosFav = JSON.stringify(fav);
+    localStorage.setItem('FAVORITOS:', baseDeDatosFav);
+}
+
+//Procedimiento para eliminar un producto de favoritos
+function eliminarFavorito(id, fav) {
+    let ind = fav.findIndex((prod) => prod.id == id);
+    fav.splice(ind, 1);
+    baseDeDatosFav = JSON.stringify(fav);
+    localStorage.setItem('FAVORITOS:', baseDeDatosFav);
+}
+
+function actualizarFAV(cartaProducto, arreglo, id, fav) {
+    // eventos de cambio para cada checkbox de favoritos
+    let checkboxFav = cartaProducto.querySelector('.prod-fav');
+    checkboxFav.addEventListener('change', () => {
+        if (checkboxFav.checked) {
+            agregarAFavoritos(arreglo, id, fav);
+        } else {
+            eliminarFavorito(id, fav);
+        }
+    });
+}
+
+function existeFav(id, fav) {
+    return fav.some((prod) => prod.id === id);
+}
+
 function mostrarCarrito(carrito) {
     
     carrito.forEach((producto) => {
@@ -38,7 +81,7 @@ function mostrarCarrito(carrito) {
             <section class="fav-carr">
                 <p>${producto.nombre}</p>
                  <label for="fav-${producto.id}" class="productos__fav">
-                    <input type="checkbox" id="fav-${producto.id}" class="prod-fav" value="favorito" ${favoritos.includes(producto.id) ? 'checked' : ''}>
+                    <input type="checkbox" id="fav-${producto.id}" class="prod-fav" value="favorito" ${existeFav(producto.id, favoritos) ? 'checked' : ''}>
                     <span class="heart">&#x2764;</span>
                 </label>
             </section>
@@ -135,7 +178,12 @@ function mostrarCarrito(carrito) {
             let valorSubTotal = carrito.reduce((acum, prod) => acum + parseFloat(prod.precio * prod.cant), 0).toFixed(2);
             subtotal.innerHTML = `${valorSubTotal}`
         });
+
+        actualizarFAV(contCar, carrito, producto.id, favoritos);
     });
+
+    
+
     carritoData = JSON.stringify(carrito);
     localStorage.setItem('CARRITO:', carritoData);
 }

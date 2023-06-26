@@ -9,7 +9,11 @@ const productos = async () => {
     const resp = await fetch('../data/productos.json');
     const data = await resp.json();
     const nuevo = agregarIVA(data);
-    mostrarProductos(nuevo, favoritos, carrito)
+    mostrarProductos(nuevo, favoritos, carrito);
+    filtradoBusqueda(nuevo, carrito);
+    filtradoOrdMayor(nuevo, favoritos, carrito);
+    filtradoOrdMenor(nuevo, favoritos, carrito);
+    filtradoPrecios(nuevo, favoritos, carrito);
 }
 
 //Funcion que devuelve un arreglo con el IVA incluido en el precio
@@ -250,11 +254,20 @@ function filtradoPrecios(arreglo, favoritos, car) {
         e.preventDefault();
         let precioInferior = document.getElementById('pInf').value;
         let precioSuperior = document.getElementById('pSup').value;
-        let encontrado = entrePrecios(arreglo, precioInferior, precioSuperior);
 
-        //limpiar productos antes de mostrar los nuevos resultados
-        limpiarProductos();
-        mostrarProductos(encontrado, favoritos, car);
+        if (precioInferior > precioSuperior) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Ingrese valores válidos'
+            })
+        }
+        else {
+            let encontrado = entrePrecios(arreglo, precioInferior, precioSuperior);
+
+            //limpiar productos antes de mostrar los nuevos resultados
+            limpiarProductos();
+            mostrarProductos(encontrado, favoritos, car);
+        }        
     });
 }
 
@@ -263,7 +276,6 @@ function mostrarProductos(arreglo, favoritos, car) {
     //accedo al id del contenedor principal
     let contenedorProductos = document.getElementById('productos-container');
     arreglo.forEach(producto => {
-
         //creo un contenedor div para cada producto
         let cartaProducto = document.createElement('div');
         //agrego la clase a cada contenedor
@@ -290,13 +302,13 @@ function mostrarProductos(arreglo, favoritos, car) {
         //agrego los contenedores de los productos al contenedor principal
         contenedorProductos.appendChild(cartaProducto);
         botonCompra(cartaProducto, arreglo, producto.id, car);
-        filtradoBusqueda(arreglo, car);
-        filtradoOrdMayor(arreglo, favoritos, car);
-        filtradoOrdMenor(arreglo, favoritos, car);
-        filtradoPrecios(arreglo, favoritos, car);
+
         actualizarFAV(cartaProducto, arreglo, producto.id, favoritos);
         cambiarImagen(cartaProducto);
+
+
     });
+    
 }
 
 productos()
